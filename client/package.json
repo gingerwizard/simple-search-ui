@@ -18,6 +18,7 @@
       "react"
     ]
   },
+  "proxy": "http://localhost:3000",
   "author": "Dale McDiarmid",
   "license": "Apache-2.0",
   "devDependencies": {

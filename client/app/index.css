@@ -80,20 +80,28 @@ body {
   height: 90%;
   width: 100%;
   border: none !important;
-  font-size: 1rem !important;
+  font-size: 1.2rem !important;
   background: #fff;
 }
 
+.search-input:focus{
+  outline: none;
+}
+
 .search-icon {
-  margin: 10px 10px 0 15px;
-  height: 30px;
+  margin: 8px 10px 10px 10px;
+  height: 20px;
   width: 20px;
   background-size: contain;
   display: block;
 }
 
 .search-button {
-  display: none;
+  background-color: #fff;
+  border: none;
+}
+.search-button:focus {
+  outline: none;
 }
 
 .search-form {
@@ -105,10 +113,7 @@ body {
   background: #fff;
 }
 
-
 .search-hits {
-
-
 }
 
 .results-top-bar {

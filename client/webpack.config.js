@@ -19,6 +19,12 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
+    proxy: {
+        '/query': {
+            target: 'http://localhost:3000',
+            secure: false
+        }
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({
