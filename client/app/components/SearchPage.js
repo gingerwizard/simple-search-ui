@@ -14,7 +14,8 @@ class SearchPage extends React.Component {
       query: null,
       results: [
 
-      ]
+      ],
+      numHits: 0
     };
     this.handleSearch = this.handleSearch.bind(this);
   }
@@ -24,6 +25,7 @@ class SearchPage extends React.Component {
       var newState = {};
       //TODO: get results from ES
       newState['query'] = query;
+      newState['numHits'] = 4;
       newState['results'] = [
         {
           'title':'Rocky 1',
@@ -70,7 +72,7 @@ class SearchPage extends React.Component {
             <Filters/>
           </div>
           <div className="center-panel">
-            <Results/>
+            <Results results={this.state}/>
           </div>
           <div className="right-panel">
             <div className="App">

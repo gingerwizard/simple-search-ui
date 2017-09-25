@@ -1,23 +1,22 @@
 var React = require('react');
+var PropTypes = require('prop-types');
 
 import { Media } from 'reactstrap';
 var SearchHits = require('./SearchHits')
 var ResultDetails = require('./ResultDetails')
 var Sort = require('../filters/Sort')
 
-class Results extends React.Component {
 
-  render () {
-    return (
-      <div>
-        <div className="results-top-bar">
-          <ResultDetails/>
-          <Sort/>
-        </div>
-        <SearchHits/>
+function Results (props) {
+  return (
+    <div>
+      <div className="results-top-bar">
+        <ResultDetails query={props.results.query} numHits={props.results.numHits}/>
+        <Sort/>
       </div>
-    )
-  }
+      <SearchHits/>
+    </div>
+  )
 
 }
 

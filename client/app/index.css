@@ -166,11 +166,7 @@ body {
 }
 
 .result-details {
-  width: 200px;
   height: 30px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  border-color: #ddd;
 }
 
 .sort {
