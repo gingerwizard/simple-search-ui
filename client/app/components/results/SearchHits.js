@@ -1,40 +1,37 @@
 var React = require('react');
-
+var PropTypes = require('prop-types');
 var SearchHit = require('./SearchHit')
-class SearchHits extends React.Component {
+function SearchHits (props) {
 
-  render () {
-
+    const hits_per_row = 3;
     return (
-      <div className="search-hits">
-        <div className="search-hits-row">
-          <SearchHit/>
-          <SearchHit/>
-          <SearchHit/>
-        </div>
-        <div className="search-hits-row">
-          <SearchHit/>
-          <SearchHit/>
-          <SearchHit/>
-        </div>
-        <div className="search-hits-row">
-          <SearchHit/>
-          <SearchHit/>
-          <SearchHit/>
-        </div>
-        <div className="search-hits-row">
-          <SearchHit/>
-          <SearchHit/>
-          <SearchHit/>
-        </div>
-      </div>
-
-    )
-  }
-
-
-
+      <div>
+        {props.results.map(function(e,i){ return i%hits_per_row ===0 && props.results.slice(i,i+hits_per_row)}).filter(function(e){return e; }).map(function(row,_){
+            return (
+              <SearchRow row={row}/>
+            )
+        })}
+    </div>
+  )
 }
+
+
+SearchHits.propTypes = {
+  results: PropTypes.array.isRequired,
+};
+
+function SearchRow (props) {
+  return (
+    <div className="search-hits-row">
+      { props.row.map(function(hit,_){
+        return (
+          <SearchHit hit={hit}/>
+        )
+      })}
+    </div>
+  )
+}
+
 
 
 module.exports = SearchHits;

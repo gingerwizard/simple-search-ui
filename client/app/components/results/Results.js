@@ -14,7 +14,7 @@ function Results (props) {
         <ResultDetails query={props.results.query} numHits={props.results.numHits}/>
         <Sort/>
       </div>
-      <SearchHits/>
+      <SearchHits results={props.results.results}/>
     </div>
   )
 

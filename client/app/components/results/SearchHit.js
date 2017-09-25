@@ -3,11 +3,8 @@ var React = require('react');
 import { Media } from 'reactstrap';
 var image = require('./placeholder.png');
 
-class SearchHit extends React.Component {
-
-  render () {
+function SearchHit (props) {
     return (
-
       <div className="search-hit">
         <Media className="search-hit-contents">
           <Media left href="#">
@@ -22,7 +19,6 @@ class SearchHit extends React.Component {
         </Media>
       </div>
     )
-  }
 }
 
 module.exports = SearchHit;
