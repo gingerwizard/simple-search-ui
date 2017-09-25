@@ -1,0 +1,177 @@
+
+body {
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif;
+  background: #f4f4f4;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+.nav-bar {
+  background: #14A7DF;
+  height: 70px;
+  display: flex;
+}
+
+.nav-bar-contents {
+  flex-direction: row;
+  display: flex;
+  width: 2000px;
+  margin: 10px auto;
+  justify-content: center;
+}
+
+.main-panel {
+  display:flex;
+  flex-direction: row;
+  height: 100%;
+  margin: 20px auto;
+  justify-content: center;
+  width: 2000px;
+}
+
+.left-panel {
+  flex: 1;
+  background-color: #fff;
+  margin-right: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  border-color: #ddd;
+}
+
+.right-panel {
+  flex: 1;
+  margin-left: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  border-color: #ddd;
+}
+
+.center-panel {
+  flex: 3;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  border-color: #ddd;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+
+
+.app-label-left {
+  flex: 1;
+}
+
+.app-label-right {
+  flex: 1;
+}
+
+.search-box {
+  flex: 3;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: -70px;
+}
+
+.search-input {
+  height: 90%;
+  width: 100%;
+  border: none !important;
+  font-size: 1rem !important;
+  background: #fff;
+}
+
+.search-icon {
+  margin: 10px 10px 0 15px;
+  height: 30px;
+  width: 20px;
+  background-size: contain;
+  display: block;
+}
+
+.search-button {
+  display: none;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  background: #fff;
+}
+
+
+.search-hits {
+
+
+}
+
+.results-top-bar {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0px 0px 0px;
+}
+
+.search-hits-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0px 0px 0px;
+}
+
+.search-hit {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  border-color: #ddd;
+  height: 300px;
+  width: 350px;
+}
+.search-hit-contents{
+  display: flex;
+}
+
+.search-image-title {
+  margin-top: 10px;
+}
+
+.search-hit-image {
+  margin: 10px 10px 10px 10px;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.filter-box {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  border-color: #ddd;
+  height: 300px;
+  margin-bottom: 15px;
+  width: 350px;
+}
+
+.result-details {
+  width: 200px;
+  height: 30px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  border-color: #ddd;
+}
+
+.sort {
+  width: 200px;
+  height: 30px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  border-color: #ddd;
+}
