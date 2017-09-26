@@ -20,4 +20,12 @@ function Results (props) {
 
 }
 
+Results.propTypes = {
+  results: PropTypes.shape({
+    query: PropTypes.string,
+    numHits: PropTypes.number.isRequired,
+    results: PropTypes.array.isRequired,
+  })
+};
+
 module.exports = Results;

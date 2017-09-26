@@ -76,6 +76,8 @@ class Sort extends React.Component {
     this.setState({
       selected_item: selected_item
     });
+
+    
   }
 
   toggle() {

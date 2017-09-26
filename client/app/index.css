@@ -34,7 +34,7 @@ body {
 }
 
 .left-panel {
-  flex: 1;
+  flex: 0.6;
   background-color: #fff;
   margin-right: 20px;
   border: 1px solid transparent;
@@ -160,7 +160,7 @@ body {
   flex-direction: column;
   align-items: center;
   align-content: center;
-  padding-top: 15px;
+  padding: 15px 15px 15px 15px;
   padding-bottom: 15px;
 }
 
@@ -168,9 +168,9 @@ body {
   border: 1px solid transparent;
   border-radius: 4px;
   border-color: #ddd;
-  height: 300px;
   margin-bottom: 15px;
-  width: 350px;
+  padding: 10px 10px 10px 10px;
+  width: 100%;
 }
 
 .result-details {
@@ -185,6 +185,11 @@ body {
 .pagination-bar {
   height: 40px;
   margin-top: 40px;
+  margin-bottom: 20px;
   display: flex;
   justify-content: center;
+}
+
+.term_filter {
+  float: right;
 }

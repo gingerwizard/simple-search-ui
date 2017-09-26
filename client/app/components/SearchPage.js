@@ -25,7 +25,8 @@ class SearchPage extends React.Component {
         var newState = {};
         newState['query'] = query;
         newState['numHits'] = results.numHits;
-        newState['results'] = results.results
+        newState['results'] = results.results;
+        newState['facets'] = results.facets;
         return newState;
       });
     }.bind(this));
@@ -45,7 +46,7 @@ class SearchPage extends React.Component {
         </div>
         <div className="main-panel">
           <div className="left-panel">
-            <Filters/>
+            <Filters facets={this.state.facets}/>
           </div>
           <div className="center-panel">
             <Results results={this.state}/>
