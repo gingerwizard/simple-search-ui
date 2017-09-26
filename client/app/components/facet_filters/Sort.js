@@ -48,36 +48,35 @@ class Sort extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       isPopoverOpen: false,
-      selected_item: 'Relevancy'
+      selected_item: 'Relevance'
     };
 
     const panelTree = { 0: {
         id: 0,
         items: [{
-          name: 'Relevancy',
-          onClick: this.setSort.bind(this,'Relevancy'),
+          name: 'Relevance',
+          onClick: this.setSort.bind(this,'Relevance',this.props.onSortChange),
         }, {
           name: 'Oldest',
-          onClick: this.setSort.bind(this,'Oldest'),
+          onClick: this.setSort.bind(this,'Oldest',this.props.onSortChange),
         }, {
           name: 'Newest',
-          onClick: this.setSort.bind(this,'Newest'),
+          onClick: this.setSort.bind(this,'Newest',this.props.onSortChange),
         }]
       }
     };
 
-    this.handleSubmit = this.onButtonClick.bind(this);
     this.handleChange = this.closePopover.bind(this);
     this.idToPanelMap = panelTree;
     this.idToPreviousPanelIdMap = extractPreviousIds(this.idToPanelMap);
   }
 
-  setSort(selected_item) {
-    this.setState({
-      selected_item: selected_item
-    });
-
-    
+  setSort(selected_item,onSortChange) {
+    onSortChange(selected_item).then(function (){
+      this.setState({
+        selected_item: selected_item
+      });
+    }.bind(this))
   }
 
   toggle() {
@@ -124,5 +123,11 @@ class Sort extends React.Component {
     );
   }
 }
+
+Sort.propTypes = {
+  onSortChange: PropTypes.func.isRequired
+};
+
+
 
 module.exports = Sort;

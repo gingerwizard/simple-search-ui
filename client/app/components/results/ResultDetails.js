@@ -7,13 +7,11 @@ import {
 function ResultDetails (props) {
 
   return (
-    <div className="result-details">
-      <KuiText>
+      <KuiText className="result-details">
         {props.query &&
           <h3>{props.numHits} results found for {props.query}</h3>
         }
       </KuiText>
-    </div>
   )
 
 }

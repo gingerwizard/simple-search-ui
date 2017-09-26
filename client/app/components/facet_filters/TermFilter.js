@@ -9,6 +9,8 @@ import {
 
 class TermFilter extends React.Component {
 
+  FACET_FILTER_TYPE = "string_drilldown";
+
   constructor(props) {
     super(props);
 
@@ -27,12 +29,12 @@ class TermFilter extends React.Component {
     return (
       <KuiSideNav>
         <KuiSideNavTitle>
-          {this.props.label}
+          {this.props.facet_filter.label}
         </KuiSideNavTitle>
-        { this.props.values.map(function(value,i){
+        { this.props.facet_filter.values.map(function(value,i){
             return (
               <KuiSideNavItem key={value.value}>
-                <button onClick={() => window.alert('Button clicked')}>
+                <button onClick={() => this.props.onClick(this.FACET_FILTER_TYPE,{label:this.props.facet_filter.label,field:this.props.facet_filter.field,value:value.value})}>
                   {value.value}
                   <KuiBadge className="term_filter" type="default">
                     {value.count}
@@ -40,18 +42,21 @@ class TermFilter extends React.Component {
                 </button>
               </KuiSideNavItem>
             )
-        })}
+        }.bind(this))}
       </KuiSideNav>
 
     )
   }
 }
 
-
 TermFilter.propTypes = {
-  label: PropTypes.string.isRequired,
-  field: PropTypes.string.isRequired,
-  values: PropTypes.array.isRequired
+  facet_filter: PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    field: PropTypes.string.isRequired,
+    values: PropTypes.array.isRequired,
+  }),
+  onClick: PropTypes.func.isRequired,
 };
+
 
 module.exports = TermFilter;

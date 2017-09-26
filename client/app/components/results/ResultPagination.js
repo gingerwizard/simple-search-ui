@@ -1,4 +1,6 @@
 var React = require('react');
+var PropTypes = require('prop-types');
+
 import {
   KuiPagination,
 } from '../../ui_framework/components';
@@ -36,5 +38,9 @@ class ResultPagination extends React.Component {
       );
     }
 }
+
+ResultPagination.propTypes = {
+  onPageChange: PropTypes.func.isRequired,
+};
 
 module.exports = ResultPagination;

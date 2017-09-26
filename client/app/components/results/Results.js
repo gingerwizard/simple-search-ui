@@ -3,29 +3,48 @@ var PropTypes = require('prop-types');
 
 var SearchHits = require('./SearchHits')
 var ResultDetails = require('./ResultDetails')
-var Sort = require('../filters/Sort')
+var FilterBar = require('./FilterBar')
+var Sort = require('../facet_filters/Sort')
 var ResultPagination = require('./ResultPagination')
+import {
+  KuiFlexGroup,
+  KuiFlexItem,
+} from '../../ui_framework/components';
+
 
 function Results (props) {
   return (
     <div>
-      <div className="results-top-bar">
-        <ResultDetails query={props.results.query} numHits={props.results.numHits}/>
-        <Sort/>
-      </div>
-      <SearchHits results={props.results.results}/>
-      <ResultPagination/>
+      <KuiFlexGroup className="results-top-bar">
+        <KuiFlexItem grow={false}>
+          <ResultDetails query={props.query.text} numHits={props.numHits}/>
+        </KuiFlexItem>
+        <KuiFlexItem>
+          <FilterBar filters={props.query.filters} onClick={props.removeFilter}/>
+        </KuiFlexItem>
+        <KuiFlexItem grow={false}>
+          <Sort onSortChange={props.onSortChange}/>
+        </KuiFlexItem>
+      </KuiFlexGroup>
+      <SearchHits results={props.results}/>
+      <ResultPagination onPageChange={props.onPageChange}/>
     </div>
   )
 
 }
 
 Results.propTypes = {
-  results: PropTypes.shape({
-    query: PropTypes.string,
-    numHits: PropTypes.number.isRequired,
-    results: PropTypes.array.isRequired,
-  })
+  query: PropTypes.shape({
+    text: PropTypes.string,
+    sort: PropTypes.string.isRequired,
+    filters: PropTypes.object.isRequired,
+    page: PropTypes.number.isRequired,
+  }),
+  results: PropTypes.array.isRequired,
+  onSortChange: PropTypes.func.isRequired,
+  removeFilter: PropTypes.func.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+  numHits: PropTypes.number.isRequired,
 };
 
 module.exports = Results;

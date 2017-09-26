@@ -117,8 +117,6 @@ body {
 }
 
 .results-top-bar {
-  display: flex;
-  justify-content: space-between;
   margin: 15px 0px 0px 0px;
 }
 
@@ -133,19 +131,20 @@ body {
   border-radius: 4px;
   border-color: #ddd;
   height: 300px;
-  width: 350px;
+  width: 400px;
   display: flex;
 }
 .search-hit-contents{
 
 }
 
-.search-image-title {
-  margin-top: 10px;
+.search-image-details {
+  margin-top: 10px !important;
+  padding-right: 5px;
 }
 
 .search-hit-image {
-  margin: 10px 10px 10px 10px;
+  margin: 0px 10px 10px 10px;
   min-width: 170px;
   min-height : 240px;
   background-repeat: no-repeat;
@@ -175,6 +174,24 @@ body {
 
 .result-details {
   height: 30px;
+}
+
+.filter-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap:wrap;
+}
+
+.filter {
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+.filter-button svg:hover
+{
+  background-color: #E3F1F6 !important;
+  cursor: pointer;
 }
 
 .sort {

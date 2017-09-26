@@ -1,16 +1,20 @@
 var React = require('react');
 var PropTypes = require('prop-types');
+import {
+  KuiText
+} from '../../ui_framework/components';
+
+
 function SearchHit (props) {
     return (
-      <div className="search-hit">
+      <KuiText className="search-hit">
           <div className="search-hit-image" style={{'backgroundImage': `url("${props.hit.img}")`}}/>
-          <div>
-            <div className="search-image-title">
-              <h3>{props.hit.title}</h3>
-            </div>
+          <div className="search-image-details">
+            <h3>{props.hit.title}</h3>
+
             {props.hit.description}
           </div>
-      </div>
+      </KuiText>
     )
 }
 
