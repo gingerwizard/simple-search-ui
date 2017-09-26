@@ -4,7 +4,7 @@ body {
   background: #f4f4f4;
 }
 
-.container {
+.main-container {
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -134,9 +134,10 @@ body {
   border-color: #ddd;
   height: 300px;
   width: 350px;
+  display: flex;
 }
 .search-hit-contents{
-  display: flex;
+
 }
 
 .search-image-title {
@@ -145,7 +146,14 @@ body {
 
 .search-hit-image {
   margin: 10px 10px 10px 10px;
+  min-width: 170px;
+  min-height : 240px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
 }
+
 
 .filters {
   display: flex;
@@ -172,7 +180,11 @@ body {
 .sort {
   width: 200px;
   height: 30px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  border-color: #ddd;
+}
+
+.pagination-bar {
+  height: 40px;
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
 }

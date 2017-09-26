@@ -1,0 +1,54 @@
+// Mixes a provided color with white.
+@function tint($color, $percent) {
+  @return mix(#fff, $color, $percent);
+}
+
+// Mixes a provided color with black.
+@function shade($color, $percent) {
+  @return mix(#000, $color, $percent);
+}
+
+// For theming. Checks the text color and tells us whether it's light or dark.
+// Based on that we either tint or shade.
+@function tintOrShade($color, $tint, $shade) {
+  @if (lightness($kuiTextColor) > 50) {
+    @return shade($color, $shade);
+  } @else {
+    @return tint($color, $tint);
+  }
+}
+
+@function shadeOrTint($color, $shade, $tint) {
+  @if (lightness($kuiTextColor) < 50) {
+    @return shade($color, $shade);
+  } @else {
+    @return tint($color, $tint);
+  }
+}
+
+// Core
+
+$kuiColorPrimary: #0079a5 !default;
+$kuiColorSecondary: #00A69B !default;
+$kuiColorAccent: #DD0A73 !default;
+$kuiColorHighlight: #FFFF00 !default;
+
+// Status
+$kuiColorDanger: #A30000 !default;
+$kuiColorWarning: #E5830E !default;
+
+// Grays
+$kuiColorEmptyShade: #FFF !default;
+$kuiColorLightestShade: #F5F5F5 !default;
+$kuiColorLightShade: #D9D9D9 !default;
+$kuiColorMediumShade: #999 !default;
+$kuiColorDarkShade: #666 !default;
+$kuiColorDarkestShade: #3F3F3F !default;
+$kuiColorFullShade: #000 !default;
+
+// Every color below must be based mathmatically on the set above.
+
+$kuiTextColor: $kuiColorDarkestShade !default;
+$kuiTitleColor: $kuiColorFullShade !default;
+$kuiLinkColor: $kuiColorPrimary !default;
+$kuiFocusBackgroundColor: tintOrShade($kuiColorPrimary, 90%, 50%) !default;

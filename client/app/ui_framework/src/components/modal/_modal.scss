@@ -1,0 +1,53 @@
+.kuiModal {
+  @include kuiBottomShadow;
+
+  background-color: $kuiColorEmptyShade;
+  border: $kuiBorderThin;
+  border-radius: $kuiBorderRadius;
+  z-index: $kuiZModal;
+  padding: $kuiSizeXL;
+  min-width: 50%;
+  animation: kuiModal $kuiAnimSpeedSlow $kuiAnimSlightBounce;
+}
+
+.kuiModal--confirmation {
+  width: 450px;
+  min-width: auto;
+}
+
+.kuiModalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+  .kuiModalHeader__title {
+    @include kuiFontSizeL;
+  }
+
+.kuiModalHeaderCloseButton {
+}
+
+.kuiModalBody {
+  padding: $kuiSizeXL 0;
+}
+
+.kuiModalFooter {
+  display: flex;
+  justify-content: flex-end;
+
+  > * + * {
+    margin-left: $kuiSize;
+  }
+}
+
+@keyframes kuiModal {
+  0% {
+    opacity: 0;
+    transform: translateY($kuiSizeXL);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

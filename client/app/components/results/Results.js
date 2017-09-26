@@ -1,11 +1,10 @@
 var React = require('react');
 var PropTypes = require('prop-types');
 
-import { Media } from 'reactstrap';
 var SearchHits = require('./SearchHits')
 var ResultDetails = require('./ResultDetails')
 var Sort = require('../filters/Sort')
-
+var ResultPagination = require('./ResultPagination')
 
 function Results (props) {
   return (
@@ -15,6 +14,7 @@ function Results (props) {
         <Sort/>
       </div>
       <SearchHits results={props.results.results}/>
+      <ResultPagination/>
     </div>
   )
 

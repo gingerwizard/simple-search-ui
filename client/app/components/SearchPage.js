@@ -4,7 +4,7 @@ var SearchBox = require('./search/SearchBox')
 var Filters = require('./filters/Filters')
 //var Relevancy = require('./filters/Relevancy')
 var Results = require('./results/Results')
-
+var SearchManager = require('../core/SearchManager')
 
 class SearchPage extends React.Component {
 
@@ -13,7 +13,6 @@ class SearchPage extends React.Component {
     this.state = {
       query: null,
       results: [
-
       ],
       numHits: 0
     };
@@ -21,44 +20,21 @@ class SearchPage extends React.Component {
   }
 
   handleSearch(query) {
-    this.setState(function() {
-      var newState = {};
-      //TODO: get results from ES
-      newState['query'] = query;
-      newState['numHits'] = 4;
-      newState['results'] = [
-        {
-          'title':'Rocky 1',
-          'img':'',
-          'body': 'Some text about the rocky film. Rocky is an entertaining but probably not a very good film.'
-        },
-        {
-          'title':'Rocky 2',
-          'img':'',
-          'body': 'Some text about the rocky film. Rocky is an entertaining but probably not a very good film.'
-        },
-        {
-          'title':'Rocky 3',
-          'img':'',
-          'body': 'Some text about the rocky film. Rocky is an entertaining but probably not a very good film.'
-        },
-        {
-          'title':'Rocky 4',
-          'img':'',
-          'body': 'Some text about the rocky film. Rocky is an entertaining but probably not a very good film.'
-        }
-      ]
-      return newState;
-    });
-
+    SearchManager.search({query:query}).then(function(results){
+      this.setState(function() {
+        var newState = {};
+        newState['query'] = query;
+        newState['numHits'] = results.numHits;
+        newState['results'] = results.results
+        return newState;
+      });
+    }.bind(this));
   }
-
 
   render () {
     return (
       <div>
         <div className="nav-bar">
-
         </div>
         <div className="nav-bar-contents">
           <div className="app-label-left"/>

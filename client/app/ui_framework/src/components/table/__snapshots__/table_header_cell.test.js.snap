@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`align defaults to left 1`] = `
+<th
+  class="kuiTableHeaderCell"
+>
+  <div
+    class="kuiTableCellContent"
+  />
+</th>
+`;
+
+exports[`align renders right when specified 1`] = `
+<th
+  class="kuiTableHeaderCell"
+>
+  <div
+    class="kuiTableCellContent kuiTableCellContent--alignRight"
+  />
+</th>
+`;
+
+exports[`renders KuiTableHeaderCell 1`] = `
+<th
+  aria-label="aria-label"
+  class="kuiTableHeaderCell testClass1 testClass2"
+  data-test-subj="test subject string"
+>
+  <div
+    class="kuiTableCellContent testClass1 testClass2"
+  >
+    children
+  </div>
+</th>
+`;

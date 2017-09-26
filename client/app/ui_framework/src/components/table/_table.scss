@@ -1,0 +1,120 @@
+/**
+ * NOTE: table-layout: fixed causes a bug in IE11 and Edge (see #9929). It also prevents us from
+ * specifying a column width, e.g. the checkbox column.
+ */
+.kuiTable {
+  @include kuiFontSizeS;
+
+  width: 100%;
+  border: none;
+  border-collapse: collapse;
+  background-color: $kuiColorEmptyShade;
+}
+
+.kuiTable--compressed {
+  .kuiTableCellContent {
+    padding: $kuiTableCellPaddingCompressed;
+  }
+
+  .kuiTableHeaderButton:focus {
+    outline: solid $kuiTableCellPaddingCompressed $kuiFocusBackgroundColor;
+  }
+}
+
+.kuiTableHeaderCell {
+  @include kuiTableCell;
+
+  color: $kuiTitleColor;
+
+  .kuiTableHeaderButton {
+    text-align: left;
+  }
+}
+
+.kuiTableHeaderCellCheckbox {
+  @include kuiTableCellCheckbox;
+}
+
+.kuiTableHeaderButton {
+  @include kuiFontSizeS;
+
+  color: inherit;
+  width: 100%;
+
+  &:hover, &:focus {
+    text-decoration: underline;
+    color: $kuiColorPrimary;
+
+    .kuiTableSortIcon {
+      display: block;
+      fill: $kuiColorPrimary;
+    }
+  }
+
+  &:focus {
+    background: $kuiFocusBackgroundColor;
+  }
+}
+
+.kuiTableSortIcon {
+  margin-left: $kuiSizeXS;
+  fill: tintOrShade($kuiTitleColor, 80%, 70%);
+
+  .kuiTableHeaderButton-isSorted & {
+    fill: $kuiTitleColor;
+  }
+}
+
+.kuiTableRow {
+  transition: background-color $kuiAnimSpeedFast $kuiAnimSlightResistance;
+  &:hover {
+    background-color: tintOrShade($kuiColorLightestShade, 50%, 20%);
+  }
+
+  &.kuiTableRow-isSelected {
+    background-color: transparentize($kuiColorPrimary, .95);
+  }
+}
+
+.kuiTableRowCell {
+  @include kuiTableCell;
+
+  color: $kuiTextColor;
+  border-top: $kuiBorderThin;
+  border-bottom: $kuiBorderThin;
+}
+
+.kuiTableRowCellCheckbox {
+  @include kuiTableCellCheckbox;
+
+  border-top: $kuiBorderThin;
+  border-bottom: $kuiBorderThin;
+}
+
+/**
+ * 1. Vertically align all children.
+ * 2. Truncate text with an ellipsis. The padding on this div allows the ellipsis to show. If
+ *    the padding was on the cell, the ellipsis would be cropped.
+ */
+.kuiTableCellContent {
+  display: flex;
+  align-items: center;
+  white-space: nowrap; /* 2 */
+  overflow: hidden; /* 2 */
+  text-overflow: ellipsis; /* 2 */
+  padding: $kuiTableCellPadding; /* 2 */
+}
+
+  .kuiTableCellContent__text {
+    overflow: hidden;
+    min-width: 0;
+    text-overflow: ellipsis;
+  }
+
+.kuiTableCellContent--alignRight {
+  justify-content: flex-end;
+}
+
+.kuiTableCellContent--wrapText {
+  white-space: normal;
+}

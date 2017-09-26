@@ -1,0 +1,68 @@
+.guideDemo__highlightLayout {
+  div {
+    background: transparentize(#0096CC, .9);
+  }
+}
+.guideDemo__highlightSpacer {
+  .kuiSpacer {
+    background: transparentize(#0096CC, .9);
+  }
+}
+
+.guideDemo__highlightGrid {
+  .kuiFlexItem {
+    background: transparentize(#0096CC, .9);
+    padding: 16px;
+  }
+}
+
+.guideDemo__highlightGridWrap {
+  .kuiFlexItem div {
+    background: transparentize(#0096CC, .9);
+    padding: 16px;
+  }
+}
+
+.guideDemo__textLines {
+  background-image: linear-gradient($kuiFocusBackgroundColor 1px, transparent 1px) !important;
+  background-size: 100% 8px !important;
+}
+
+.guideDemo__color {
+  padding: $kuiSizeS;
+  color: $kuiColorEmptyShade;
+  font-size: $kuiFontSizeS;
+  margin-top: $kuiSizeS;
+  line-height: 1.5;
+  height: 64px;
+
+  .guideDemo__colorHex {
+    font-size: $kuiFontSize;
+  }
+}
+
+.guideDemo__size {
+  background: $kuiTextColor;
+  display: inline-block;
+}
+
+.guideDemo__sizeText {
+  line-height: 1.5;
+}
+
+.guideDemo__sizeGrid {
+  font-size: $kuiFontSizeS;
+}
+
+.guideDemo__ghostBackground {
+  background: #444;
+  padding: $kuiSizeL;
+}
+
+.guideDemo__icon {
+  text-align: center;
+
+  svg {
+    margin-bottom: $kuiSizeS;
+  }
+}
