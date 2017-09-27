@@ -5,22 +5,27 @@ var FacetFilters = require('./facet_filters/FacetFilters')
 //var Relevancy = require('./filters/Relevancy')
 var Results = require('./results/Results')
 var SearchManager = require('../core/SearchManager')
-var { List } = require('immutable');
+var { List, Map } = require('immutable');
 
+const HITS_PER_PAGE = 10;
 class SearchPage extends React.Component {
+
+
 
   constructor(props) {
     super(props);
+
     this.state = {
-      query: {
+      query: Map ({
         text:null,
         sort:'Relevance',
         filters: List(),
-        page: 0
-      },
+        from: 0
+      }),
       results: [
       ],
-      numHits: 0
+      numHits: 0,
+      pageCount: 10,
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSortChange = this.handleSortChange.bind(this);
@@ -31,43 +36,37 @@ class SearchPage extends React.Component {
   }
 
   handleQueryChange(query){
-    this.handleSearch(query,this.state.query.sort,this.state.query.filters);
+    this.handleSearch(this.state.query.set('text',query));
   }
 
   handleSortChange(sort_id){
     return new Promise(function(resolve, reject){
-      this.handleSearch(this.state.query.text,sort_id,this.state.query.filters);
+      this.handleSearch(this.state.query.set('sort',sort_id));
       resolve();
     }.bind(this));
   }
 
   handleFilterApply(type,facet_filter){
     //TODO: Ignoring type here - willl need to handle in future
-    this.handleSearch(this.state.query.text,this.state.query.sort,this.state.query.filters.push(facet_filter));
+    this.handleSearch(this.state.query.set('filters',this.state.query.get('filters').push(facet_filter)));
   }
 
   handleFilterRemove(field,value){
-    var new_filters = this.state.query.filters.filter(function(filter){
+    var new_filters = this.state.query.get('filters').filter(function(filter){
       return filter.field != field || filter.value != value;
     });
-    this.handleSearch(this.state.query.text,this.state.query.sort,new_filters);
+    this.handleSearch(this.state.query.set('filters',new_filters));
   }
 
-  handlePageChange(field,value) {
-
-
+  handlePageChange(page) {
+    this.handleSearch(this.state.query.set('from',HITS_PER_PAGE*page))
   }
 
-  handleSearch(query,sort,filters) {
-    SearchManager.search({query:query,sort:sort,filters:filters}).then(function(results){
+  handleSearch(query) {
+    SearchManager.search(query).then(function(results){
       this.setState(function() {
         var newState = {};
-        newState['query'] = {
-          text: query,
-          sort: sort,
-          filters:filters,
-          page:0
-        };
+        newState['query'] = query;
         newState['numHits'] = results.numHits;
         newState['results'] = results.results;
         newState['facets'] = results.facets;
@@ -90,10 +89,10 @@ class SearchPage extends React.Component {
         </div>
         <div className="main-panel">
           <div className="left-panel">
-            <FacetFilters facets={this.state.facets} filters={this.state.query.filters} onFilterApply={this.handleFilterApply}/>
+            <FacetFilters facets={this.state.facets} filters={this.state.query.get('filters')} onFilterApply={this.handleFilterApply}/>
           </div>
           <div className="center-panel">
-            <Results results={this.state.results} query={this.state.query} numHits={this.state.numHits} onPageChange={this.handlePageChange} onSortChange={this.handleSortChange} removeFilter={this.handleFilterRemove}/>
+            <Results results={this.state.results} pageCount={this.state.pageCount} query={this.state.query} numHits={this.state.numHits} onPageChange={this.handlePageChange} onSortChange={this.handleSortChange} removeFilter={this.handleFilterRemove}/>
           </div>
           <div className="right-panel">
             <div className="App">

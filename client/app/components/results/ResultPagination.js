@@ -3,6 +3,9 @@ var PropTypes = require('prop-types');
 
 import {
   KuiPagination,
+  KuiFlexGroup,
+  KuiFlexItem,
+  KuiHorizontalRule
 } from '../../ui_framework/components';
 
 class ResultPagination extends React.Component {
@@ -14,13 +17,13 @@ class ResultPagination extends React.Component {
         activePage: 0
       };
 
-      this.PAGE_COUNT = 10;
       this.goToPage = this.goToPage.bind(this);
+      this.onPageChange = props.onPageChange.bind(this);
     }
 
 
     goToPage(pageNumber){
-      alert(pageNumber);
+      this.onPageChange(pageNumber);
       this.setState({
         activePage: pageNumber,
       });
@@ -28,12 +31,16 @@ class ResultPagination extends React.Component {
 
     render() {
       return (
-        <div className="pagination-bar">
-          <KuiPagination
-            pageCount={this.PAGE_COUNT}
-            activePage={this.state.activePage}
-            onPageClick={this.goToPage}
-          />
+        <div>
+          <KuiHorizontalRule/>
+            <KuiFlexGroup justifyContent="spaceAround">
+              <KuiPagination
+                pageCount={this.props.pageCount}
+                activePage={this.state.activePage}
+                onPageClick={this.goToPage}
+              />
+          </KuiFlexGroup>
+         <KuiHorizontalRule />
         </div>
       );
     }
@@ -41,6 +48,7 @@ class ResultPagination extends React.Component {
 
 ResultPagination.propTypes = {
   onPageChange: PropTypes.func.isRequired,
+  pageCount: PropTypes.number.isRequired,
 };
 
 module.exports = ResultPagination;

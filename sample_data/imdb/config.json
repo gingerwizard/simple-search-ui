@@ -1,0 +1,124 @@
+{
+  "mappings": {
+    "doc": {
+      "properties": {
+        "Actors": {
+          "type": "keyword",
+          "ignore_above": 256
+        },
+        "Awards": {
+          "type": "keyword",
+          "ignore_above": 256
+        },
+        "BoxOffice": {
+          "type": "keyword",
+          "ignore_above": 256
+        },
+        "Country": {
+         "type": "keyword",
+          "ignore_above": 256
+        },
+        "DVD": {
+          "type": "keyword",
+          "ignore_above": 256
+        },
+        "Director": {
+          "type": "keyword",
+          "ignore_above": 256
+        },
+        "Genre": {
+         "type": "keyword",
+          "ignore_above": 256
+        },
+        "Language": {
+         "type": "keyword",
+          "ignore_above": 256
+        },
+        "Metascore": {
+          "type": "integer",
+          "ignore_malformed": true
+        },
+        "Plot": {
+          "type": "text"
+        },
+        "Poster": {
+          "type": "keyword",
+          "ignore_above": 256
+        },
+        "Production": {
+          "type": "keyword",
+          "ignore_above": 256
+        },
+        "Rated": {
+          "type": "keyword",
+          "ignore_above": 256
+        },
+        "Ratings": {
+          "properties": {
+            "Source": {
+              "type": "keyword",
+              "ignore_above": 256
+            },
+            "Value": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "Released": {
+          "type":"date",
+          "ignore_malformed": true,
+          "format":"dd MMM yyyy"
+        },
+        "Runtime": {
+          "type": "integer",
+          "ignore_malformed": true
+        },
+        "Title": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "Type": {
+          "type": "keyword",
+          "ignore_above": 256
+        },
+        "Website": {
+          "type": "keyword",
+          "ignore_above": 256
+        },
+        "Writer": {
+          "type": "keyword",
+          "ignore_above": 256
+        },
+        "Year": {
+          "type": "date",
+          "ignore_malformed": true,
+          "format":"yyyy"
+        },
+        "imdbID": {
+          "type": "keyword",
+          "ignore_above": 256
+        },
+        "imdbRating": {
+          "ignore_malformed": true,
+          "type": "half_float"
+        },
+        "imdbVotes": {
+          "ignore_malformed": true,
+          "type": "integer"
+        }
+      }
+    }
+  },
+  "settings": {
+    "index": {
+      "number_of_shards": "1",
+      "number_of_replicas": "1"
+    }
+  }
+}

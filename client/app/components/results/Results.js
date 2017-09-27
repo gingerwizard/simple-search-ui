@@ -17,29 +17,25 @@ function Results (props) {
     <div>
       <KuiFlexGroup className="results-top-bar">
         <KuiFlexItem grow={false}>
-          <ResultDetails query={props.query.text} numHits={props.numHits}/>
+          <ResultDetails query={props.query.get('text')} numHits={props.numHits}/>
         </KuiFlexItem>
         <KuiFlexItem>
-          <FilterBar filters={props.query.filters} onClick={props.removeFilter}/>
+          <FilterBar filters={props.query.get('filters')} onClick={props.removeFilter}/>
         </KuiFlexItem>
         <KuiFlexItem grow={false}>
           <Sort onSortChange={props.onSortChange}/>
         </KuiFlexItem>
       </KuiFlexGroup>
       <SearchHits results={props.results}/>
-      <ResultPagination onPageChange={props.onPageChange}/>
+      <ResultPagination onPageChange={props.onPageChange} pageCount={props.pageCount}/>
     </div>
   )
 
 }
 
 Results.propTypes = {
-  query: PropTypes.shape({
-    text: PropTypes.string,
-    sort: PropTypes.string.isRequired,
-    filters: PropTypes.object.isRequired,
-    page: PropTypes.number.isRequired,
-  }),
+  query: PropTypes.object.isRequired,
+  pageCount: PropTypes.number.isRequired,
   results: PropTypes.array.isRequired,
   onSortChange: PropTypes.func.isRequired,
   removeFilter: PropTypes.func.isRequired,

@@ -199,14 +199,6 @@ body {
   height: 30px;
 }
 
-.pagination-bar {
-  height: 40px;
-  margin-top: 40px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
-}
-
 .term_filter {
   float: right;
 }
