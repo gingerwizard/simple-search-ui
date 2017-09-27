@@ -47,15 +47,14 @@ class Sort extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       isPopoverOpen: false,
-      selected_item: props.sortOptions[props.defaultSort].label
+      selected_item: props.sortOptions.get(props.defaultSort).get('label')
     };
-
     const panelTree = { 0: {
         id: 0,
-        items: Object.keys(props.sortOptions).map(function(key){
+        items: props.sortOptions.entrySeq().map(function(sort_option,key){
             return {
-                name: props.sortOptions[key].label,
-                onClick: this.setSort.bind(this,key,props.onSortChange)
+                name: sort_option[1].get('label'),
+                onClick: this.setSort.bind(this,sort_option[0],sort_option[1])
             }
         }.bind(this))
       }

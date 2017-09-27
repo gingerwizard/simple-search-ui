@@ -18,7 +18,7 @@ function FilterBar (props) {
           <div key={filter.field +'-'+ filter.value} className="filter">
             <KuiBadge iconType="cross" size="medium" className="filter-button" onClick={() => props.onClick(filter.field,filter.value)}>
               <KuiText>
-                {filter.label}: {filter.value}
+                <span className="filter-label">{filter.label}:</span> {filter.value}
               </KuiText>
             </KuiBadge>
           </div>

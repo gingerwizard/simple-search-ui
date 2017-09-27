@@ -4,7 +4,6 @@ var PropTypes = require('prop-types');
 var { List, Map } = require('immutable');
 
 function FacetFilters (props) {
-
   //TODO: Right now we dont use props.filters - we might if we have  a multi select facet
   return (
     <div className="filters">

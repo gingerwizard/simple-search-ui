@@ -24,16 +24,17 @@ class SearchPage extends React.Component {
       results: List(),
       numHits: 0,
       pageCount: 10,
-      config: {
-        'sort_options':{
-          'relevance':{
+      facets: List(),
+      config: Map({
+        'sort_options':Map({
+          'relevance':Map({
             'label':'Relevance',
             'field':'_score',
             'order':'desc'
-          }
-        },
+          })
+        }),
         'default_sort':'relevance'
-      }
+      })
     };
 
 
@@ -46,7 +47,8 @@ class SearchPage extends React.Component {
   }
 
   handleQueryChange(query){
-    this.handleSearch(this.state.query.set('text',query));
+    var newState = this.state.query.set('text',query);
+    this.handleSearch(newState);
   }
 
   handleSortChange(sort_id){
@@ -74,13 +76,12 @@ class SearchPage extends React.Component {
 
   handleSearch(query) {
     SearchManager.search(query).then(function(response){
-      this.setState(function() {
-        var newState = {};
-        newState['query'] = query;
-        newState['numHits'] = response.numHits;
-        newState['results'] = Immutable.fromJS(response.results);
-        newState['facets'] = Immutable.fromJS(response.facets);
-        return newState;
+      this.setState(function(state) {
+        state.query = query;
+        state.numHits = response.numHits;
+        state.results = Immutable.fromJS(response.results);
+        state.facets = Immutable.fromJS(response.facets);
+        return state;
       });
     }.bind(this));
   }
@@ -109,7 +110,7 @@ class SearchPage extends React.Component {
             <FacetFilters facets={this.state.facets} filters={this.state.query.get('filters')} onFilterApply={this.handleFilterApply}/>
           </div>
           <div className="center-panel">
-            <Results defaultSort={this.state.config.default_sort} sortOptions={this.state.config.sort_options} results={this.state.results} pageCount={this.state.pageCount} query={this.state.query} numHits={this.state.numHits} onPageChange={this.handlePageChange} onSortChange={this.handleSortChange} removeFilter={this.handleFilterRemove}/>
+            <Results defaultSort={this.state.config.get('default_sort')} sortOptions={this.state.config.get('sort_options')} results={this.state.results} pageCount={this.state.pageCount} query={this.state.query} numHits={this.state.numHits} onPageChange={this.handlePageChange} onSortChange={this.handleSortChange} removeFilter={this.handleFilterRemove}/>
           </div>
           <div className="right-panel">
             <div className="App">
