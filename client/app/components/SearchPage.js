@@ -10,8 +10,6 @@ var { List, Map } = require('immutable');
 const HITS_PER_PAGE = 10;
 class SearchPage extends React.Component {
 
-
-
   constructor(props) {
     super(props);
 

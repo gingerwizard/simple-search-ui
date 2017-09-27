@@ -1,0 +1,39 @@
+{
+  "results_per_page": 10,
+  "facets": {
+    "writers":{
+      "field": "writers",
+      "type": "string_drilldown",
+      "label": "Writers",
+    },
+    "actors":{
+      "field": "actors",
+      "type": "string_drilldown",
+      "label": "Actors",
+    },
+    "genre":{
+      "field": "genre",
+      "type": "string_drilldown",
+      "label": "Genres",
+    }
+  },
+  "query_template": "simple_search_ui",
+  "sort_options": {
+    "relevance":{
+      "label":"Relevance",
+      "field":"_score",
+      "order":"desc"
+    },
+    "oldest":{
+      "label":"Oldest",
+      "field":"released",
+      "order":"asc"
+    },
+    "newest":{
+      "label":"Newest",
+      "field":"released",
+      "order":"desc"
+    }
+  },
+  "default_sort": "relevance"
+}

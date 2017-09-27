@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var query = require('./routes/query');
+var config = require('./routes/config')
 
 var app = express();
 
@@ -21,7 +22,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/api', query);
+app.use('/api/search', query);
+app.use('/api/config', config)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -33,14 +35,24 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  if (err.name === 'JsonSchemaValidation') {
+    res.status(422);
+    let responseData = {
+       statusText: 'Bad Request',
+       jsonSchemaValidation: true,
+       validations: err.validations  // All of your validation information
+    };
+    res.json(responseData);
+  } else {
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // render the error page
+    res.status(500).json({
+          message: err.message,
+          error: err
+      });
+  }
 
-  // render the error page
-  res.status(500).json({
-        message: err.message,
-        error: err
-    });
 });
 
 module.exports = app;

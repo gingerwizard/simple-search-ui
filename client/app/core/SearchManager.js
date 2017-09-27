@@ -2,7 +2,7 @@
 var axios = require('axios');
 
 
-function execute(query){
+function search(query){
 
   var filterString = query.get('filters').reduce(function(filterString,filter){
     return filterString + "&filters="+filter.field + ":" + filter.value;
@@ -15,6 +15,11 @@ function execute(query){
   });
 }
 
+function config(){
+  return axios.get('/api/config').then(function(response){
+    return response.data;
+  });
+}
 
-const SearchManager = { search : execute };
+const SearchManager = { search : search, config : config };
 module.exports = SearchManager;

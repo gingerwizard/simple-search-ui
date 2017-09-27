@@ -2,58 +2,58 @@
   "mappings": {
     "doc": {
       "properties": {
-        "Actors": {
+        "actors": {
           "type": "keyword",
           "ignore_above": 256
         },
-        "Awards": {
+        "awards": {
           "type": "keyword",
           "ignore_above": 256
         },
-        "BoxOffice": {
+        "boxoffice": {
           "type": "keyword",
           "ignore_above": 256
         },
-        "Country": {
+        "country": {
          "type": "keyword",
           "ignore_above": 256
         },
-        "DVD": {
+        "dvd": {
           "type": "keyword",
           "ignore_above": 256
         },
-        "Director": {
+        "director": {
           "type": "keyword",
           "ignore_above": 256
         },
-        "Genre": {
+        "genre": {
          "type": "keyword",
           "ignore_above": 256
         },
-        "Language": {
+        "language": {
          "type": "keyword",
           "ignore_above": 256
         },
-        "Metascore": {
+        "metascore": {
           "type": "integer",
           "ignore_malformed": true
         },
-        "Plot": {
+        "plot": {
           "type": "text"
         },
-        "Poster": {
+        "poster": {
           "type": "keyword",
           "ignore_above": 256
         },
-        "Production": {
+        "production": {
           "type": "keyword",
           "ignore_above": 256
         },
-        "Rated": {
+        "rated": {
           "type": "keyword",
           "ignore_above": 256
         },
-        "Ratings": {
+        "ratings": {
           "properties": {
             "Source": {
               "type": "keyword",
@@ -65,16 +65,16 @@
             }
           }
         },
-        "Released": {
+        "released": {
           "type":"date",
           "ignore_malformed": true,
           "format":"dd MMM yyyy"
         },
-        "Runtime": {
+        "runtime": {
           "type": "integer",
           "ignore_malformed": true
         },
-        "Title": {
+        "title": {
           "type": "text",
           "fields": {
             "keyword": {
@@ -83,32 +83,32 @@
             }
           }
         },
-        "Type": {
+        "type": {
           "type": "keyword",
           "ignore_above": 256
         },
-        "Website": {
+        "website": {
           "type": "keyword",
           "ignore_above": 256
         },
-        "Writer": {
+        "writer": {
           "type": "keyword",
           "ignore_above": 256
         },
-        "Year": {
+        "year": {
           "type": "date",
           "ignore_malformed": true,
           "format":"yyyy"
         },
-        "imdbID": {
+        "imdbid": {
           "type": "keyword",
           "ignore_above": 256
         },
-        "imdbRating": {
+        "imdbrating": {
           "ignore_malformed": true,
           "type": "half_float"
         },
-        "imdbVotes": {
+        "imdbvotes": {
           "ignore_malformed": true,
           "type": "integer"
         }

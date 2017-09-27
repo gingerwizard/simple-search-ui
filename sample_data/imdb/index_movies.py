@@ -29,16 +29,17 @@ def handle_data_file(file_path,api_key):
     with open(file_path, newline='') as csvfile:
         file_reader = csv.DictReader(csvfile, delimiter='\t')
         for row in file_reader:
-            doc = getMovieDetails(row['tconst'],api_key)
-            if doc:
-                doc["_id"] = row['tconst']
-                doc['Genre'] = doc['Genre'].split(',')
-                doc['Writer'] = doc['Writer'].split(',')
-                doc['Runtime'] = doc['Runtime'].replace(" min","")
-                del doc["Response"]
-                yield doc
-            else:
-                print("No details found for %s"%row['tconst'])
+            if row['titleType'] == 'movie':
+                doc = getMovieDetails(row['tconst'],api_key)
+                if doc:
+                    doc["_id"] = row['tconst']
+                    doc['Genre'] = doc['Genre'].split(',')
+                    doc['Writer'] = doc['Writer'].split(',')
+                    doc['Runtime'] = doc['Runtime'].replace(" min","")
+                    del doc["Response"]
+                    yield {k.lower(): v for k, v in doc.items()}
+                else:
+                    print("No details found for %s"%row['tconst'])
 
 if __name__ == '__main__':
     args = parser.parse_args()

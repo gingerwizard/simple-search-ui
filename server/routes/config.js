@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-/* Root endpoint */
+/* Grab Configuration from ES */
 router.get('/', function(req, res, next) {
-  res.json({"service":"simple-search-ui"});
+
+  res.json({"config":{}});
 });
 
 module.exports = router;

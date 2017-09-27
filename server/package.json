@@ -6,10 +6,13 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "body-parser": "~1.17.1",
+    "body-parser": "^1.17.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
+    "elasticsearch": "^13.3.1",
     "express": "~4.15.2",
+    "express-json-validator": "^1.0.1",
+    "express-jsonschema": "^1.1.6",
     "morgan": "~1.8.1",
     "serve-favicon": "~2.4.2"
   }

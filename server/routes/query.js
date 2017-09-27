@@ -1,77 +1,68 @@
 var express = require('express');
 var router = express.Router();
+var SearchManager = require('../SearchManager')
+var validate = require('express-jsonschema').validate;
+const sort_options = ['relevance','oldest','newest']
+const default_sort = 'relevance'
 
-/* GET users listing. */
-router.get('/search', function(req, res, next) {
-	// Comment out this line:
-  //res.send('respond with a resource');
+const config = SearchManager.config()
 
-  // And insert something like this instead:
-  res.json({
-    'numHits':4,
-    'results':[
-        {
-          'id':1,
-          'title':'Rocky 1',
-          'img':'https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BMTY5MDMzODUyOF5BMl5BanBnXkFtZTcwMTQ3NTMyNA@@._V1_SX300.jpg',
-          'description': 'Rocky is a 1976 American sports drama film directed by John G. Avildsen and both written by and starring Sylvester Stallone.'
-        },
-        {
-          'id':2,
-          'title':'Rocky Balboa',
-          'img':'https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BMTM2OTUzNDE3NV5BMl5BanBnXkFtZTcwODczMzkzMQ@@._V1_SX300.jpg',
-          'description': 'Robert "Rocky" Balboa is the title character of the Rocky series. The character was created by Sylvester Stallone, who also portrayed him in all seven Rocky films.'
-        },
-        {
-          'id':3,
-          'title':'Pulp Fiction',
-          'img':'https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BMjE0ODk2NjczOV5BMl5BanBnXkFtZTYwNDQ0NDg4._V1_SX300.jpg',
-          'description': 'Pulp Fiction is a 1994 American black comedy neo-noir crime film written and directed by Quentin Tarantino, from a story by Tarantino and Roger Avary.'
-        },
-        {
-          'id':4,
-          'title':'Apocalypse Now',
-          'img':'https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BMTcyMzQ5NDM4OV5BMl5BanBnXkFtZTcwODUwNDg3OA@@._V1_SX300.jpg',
-          'description': 'Apocalypse Now is a 1979 American epic war film directed, produced, and co-written by Francis Ford Coppola.'
+const query_schema = {
+  type: 'object',
+  properties: {
+    query: { type: 'string',required: true },
+    sort: { type: 'string', enum: Object.keys(config['sort_options']) },
+    from: { type: 'integer'},
+    filters: {  type: 'array', 'items': {
+        type: 'object',
+        properties: {
+          field: {
+            type: 'string',
+            required: true,
+            enum: Object.keys(config['facets'])
+          },
+          value: {
+            type: 'string',
+            required: true
+          }
         }
-      ],
-    'facets': [
-      {
-          'field':'actors',
-          'type':'string_drilldown',
-          'label':'Actors',
-          'values':[
-            {value:"Dustin Hoffman",count:45},
-            {value:"Russell Crowe",count:41},
-            {value:"Richard Webber",count:34},
-            {value:"Gene Hackman",count:23},
-            {value:"Demi Moore",count:17},
-            {value:"Nicole Kidman",count:8}
-          ]
-      },
-      {
-          'field':'categories',
-          'type':'string_drilldown',
-          'label':'Categories',
-          'values':[
-            {value:"Movie",count:45},
-            {value:"Episode",count:41},
-            {value:"Series",count:34},
-            {value:"Genre",count:23}
-          ]
-      },
-      {
-          'field':'writers',
-          'type':'string_drilldown',
-          'label':'Writers',
-          'values':[
-            {value:"Movie",count:45},
-            {value:"Episode",count:41},
-            {value:"Series",count:34},
-            {value:"Genre",count:23}
-          ]
       }
-    ]
+    }
+  }
+};
+
+/* Search ES */
+router.post('/',validate({body: query_schema}),function(req, res, next) {
+  console.log(req.body)
+  var sort_details = req.body.sort ? config['sort_options'][req.body.sort] : config['sort_options'][config['default_sort']]
+  var filters = req.body.filters ? req.body.filters.map(function(filter,_){
+    return {
+      "term": {
+        [filter.field]:filter.value
+      }
+    }
+  }): [];
+  var params = {
+      "query_string": req.body.query,
+      "results_per_page": config["results_per_page"],
+      "sort_field": sort_details.field,
+      "sort_order": sort_details.order,
+      "from": req.body.from ? req.body.from : 0,
+      "filters": filters
+  }
+  SearchManager.search(config['query_template'],params).then(function(resp){
+    //console.log(JSON.stringify(resp.hits.hits))
+    res.json({
+      "numHits":resp.hits.total,
+      "results": resp.hits.hits.map(function(hit){
+        return {
+          "id":1,
+          "title":"Rocky 1",
+          "img":"",
+          "description":""
+        }
+      })
+    })
   });
 });
 
