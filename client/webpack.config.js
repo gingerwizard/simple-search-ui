@@ -20,7 +20,7 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     proxy: {
-        '/api/search': {
+        '/api/': {
             target: 'http://localhost:3000',
             secure: false
         }

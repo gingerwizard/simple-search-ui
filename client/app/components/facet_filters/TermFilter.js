@@ -33,9 +33,9 @@ class TermFilter extends React.Component {
         </KuiSideNavTitle>
         { this.props.facet_filter.values.map(function(value,i){
             return (
-              <KuiSideNavItem key={value.value}>
-                <button onClick={() => this.props.onClick(this.FACET_FILTER_TYPE,{label:this.props.facet_filter.label,field:this.props.facet_filter.field,value:value.value})}>
-                  {value.value}
+              <KuiSideNavItem key={value.key}>
+                <button onClick={() => this.props.onClick(this.FACET_FILTER_TYPE,{label:this.props.facet_filter.label,field:this.props.facet_filter.field,value:value.key})}>
+                  {value.key}
                   <KuiBadge className="term_filter" type="default">
                     {value.count}
                   </KuiBadge>

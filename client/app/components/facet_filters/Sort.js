@@ -18,7 +18,6 @@ function convertPanelTreeToMap(panel, map = {}) {
       panel.items.forEach(item => convertPanelTreeToMap(item.panel, map));
     }
   }
-
   return map;
 }
 
@@ -44,25 +43,21 @@ class Sort extends React.Component {
 
   constructor(props) {
     super(props);
-
+    this.props = props;
     this.toggle = this.toggle.bind(this);
     this.state = {
       isPopoverOpen: false,
-      selected_item: 'Relevance'
+      selected_item: props.sortOptions[props.defaultSort].label
     };
 
     const panelTree = { 0: {
         id: 0,
-        items: [{
-          name: 'Relevance',
-          onClick: this.setSort.bind(this,'Relevance',this.props.onSortChange),
-        }, {
-          name: 'Oldest',
-          onClick: this.setSort.bind(this,'Oldest',this.props.onSortChange),
-        }, {
-          name: 'Newest',
-          onClick: this.setSort.bind(this,'Newest',this.props.onSortChange),
-        }]
+        items: Object.keys(props.sortOptions).map(function(key){
+            return {
+                name: props.sortOptions[key].label,
+                onClick: this.setSort.bind(this,key,props.onSortChange)
+            }
+        }.bind(this))
       }
     };
 
@@ -125,7 +120,9 @@ class Sort extends React.Component {
 }
 
 Sort.propTypes = {
-  onSortChange: PropTypes.func.isRequired
+  onSortChange: PropTypes.func.isRequired,
+  sortOptions: PropTypes.object.isRequired,
+  defaultSort: PropTypes.string.isRequired,
 };
 
 

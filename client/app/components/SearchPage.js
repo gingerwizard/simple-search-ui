@@ -16,7 +16,7 @@ class SearchPage extends React.Component {
     this.state = {
       query: Map ({
         text:null,
-        sort:'Relevance',
+        sort:'relevance',
         filters: List(),
         from: 0
       }),
@@ -24,7 +24,19 @@ class SearchPage extends React.Component {
       ],
       numHits: 0,
       pageCount: 10,
+      config: {
+        'sort_options':{
+          'relevance':{
+            'label':'Relevance',
+            'field':'_score',
+            'order':'desc'
+          }
+        },
+        'default_sort':'relevance'
+      }
     };
+
+
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSortChange = this.handleSortChange.bind(this);
     this.handleQueryChange = this.handleQueryChange.bind(this);
@@ -73,6 +85,14 @@ class SearchPage extends React.Component {
     }.bind(this));
   }
 
+  componentDidMount() {
+    SearchManager.config().then(function(response){
+      alert(JSON.stringify(response));
+
+    });
+
+  }
+
   render () {
     return (
       <div>
@@ -90,7 +110,7 @@ class SearchPage extends React.Component {
             <FacetFilters facets={this.state.facets} filters={this.state.query.get('filters')} onFilterApply={this.handleFilterApply}/>
           </div>
           <div className="center-panel">
-            <Results results={this.state.results} pageCount={this.state.pageCount} query={this.state.query} numHits={this.state.numHits} onPageChange={this.handlePageChange} onSortChange={this.handleSortChange} removeFilter={this.handleFilterRemove}/>
+            <Results defaultSort={this.state.config.default_sort} sortOptions={this.state.config.sort_options} results={this.state.results} pageCount={this.state.pageCount} query={this.state.query} numHits={this.state.numHits} onPageChange={this.handlePageChange} onSortChange={this.handleSortChange} removeFilter={this.handleFilterRemove}/>
           </div>
           <div className="right-panel">
             <div className="App">

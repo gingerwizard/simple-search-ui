@@ -10,10 +10,10 @@ function FacetFilters (props) {
 
   return (
     <div className="filters">
-      {facets.map(function(facet,i){
+      {Object.keys(facets).map(function(key){
           return (
-            <div key={facet.field} className="filter-box">
-                <TermFilter facet_filter={facet} onClick={props.onFilterApply}/>
+            <div key={key} className="filter-box">
+                <TermFilter facet_filter={facets[key]} onClick={props.onFilterApply}/>
             </div>
           )
       })}
@@ -29,14 +29,14 @@ function FacetFilters (props) {
 
 
 FacetFilters.propTypes = {
-  facets: PropTypes.array,
+  facets: PropTypes.object,
   filters: PropTypes.object,
   onFilterApply: PropTypes.func.isRequired,
 };
 
 
 FacetFilters.defaultProps = {
-  facets: [],
+  facets: {},
   filters: List()
 }
 

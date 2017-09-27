@@ -23,7 +23,7 @@ function Results (props) {
           <FilterBar filters={props.query.get('filters')} onClick={props.removeFilter}/>
         </KuiFlexItem>
         <KuiFlexItem grow={false}>
-          <Sort onSortChange={props.onSortChange}/>
+          <Sort defaultSort={props.defaultSort} onSortChange={props.onSortChange} sortOptions={props.sortOptions}/>
         </KuiFlexItem>
       </KuiFlexGroup>
       <SearchHits results={props.results}/>
@@ -41,6 +41,8 @@ Results.propTypes = {
   removeFilter: PropTypes.func.isRequired,
   onPageChange: PropTypes.func.isRequired,
   numHits: PropTypes.number.isRequired,
+  sortOptions: PropTypes.object.isRequired,
+  defaultSort: PropTypes.string.isRequired,
 };
 
 module.exports = Results;

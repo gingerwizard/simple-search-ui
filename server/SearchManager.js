@@ -26,26 +26,29 @@ function search(template_id,params){
 //Returns app config from the .simple-search-config index
 function config(){
   return {
-      "results_per_page": 10,
+      "results_per_page": 12,
       "id_field":"imdbid",
       "title_field":"title",
       "img_field":"poster",
       "description_field":"plot",
       "facets": {
         "writers":{
-          "field": "writers",
+          "field": "writer",
           "type": "string_drilldown",
           "label": "Writers",
+          "size":10
         },
         "actors":{
           "field": "actors",
           "type": "string_drilldown",
           "label": "Actors",
+          "size":10
         },
         "genre":{
           "field": "genre",
           "type": "string_drilldown",
           "label": "Genres",
+          "size":10
         }
       },
       "query_template": "simple_search_ui",

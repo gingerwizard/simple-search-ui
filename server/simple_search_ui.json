@@ -1,18 +1,1 @@
-{
-  "template": {
-    "query": {
-      "query_string": {
-        "query": "{{query_string}}"
-      }
-    },
-    "sort": [
-      {
-        "{{sort_field}}": {
-          "order": "{{sort_order}}"
-        }
-      }
-    ],
-    "size":"{{results_per_page}}",
-    "from":"{{from}}"
-  }
-}
+{"template":"{\"query\": {\"bool\": {\"must\": [{\"query_string\": {\"query\": \"{{query_string}}\"}}],\"filter\": {{#toJson}}filters{{/toJson}} }},\"sort\": [{\"{{sort_field}}\": {\"order\": \"{{sort_order}}\"}}],\"size\": \"{{results_per_page}}\",\"from\": \"{{from}}\",\"aggs\": {{#toJson}}facets{{/toJson}} }}}"}
