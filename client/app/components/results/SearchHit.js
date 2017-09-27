@@ -8,11 +8,11 @@ import {
 function SearchHit (props) {
     return (
       <KuiText className="search-hit">
-          <div className="search-hit-image" style={{'backgroundImage': `url("${props.hit.img}")`}}/>
+          <div className="search-hit-image" style={{'backgroundImage': `url("${props.hit.get('img')}")`}}/>
           <div className="search-image-details">
-            <h3>{props.hit.title}</h3>
+            <h3>{props.hit.get('title')}</h3>
 
-            {props.hit.description}
+            {props.hit.get('description')}
           </div>
       </KuiText>
     )
@@ -20,10 +20,6 @@ function SearchHit (props) {
 
 
 SearchHit.propTypes = {
-  hit: PropTypes.shape({
-    img: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-  })
+  hit: PropTypes.object.isRequired
 };
 module.exports = SearchHit;

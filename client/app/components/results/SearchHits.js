@@ -6,9 +6,9 @@ function SearchHits (props) {
     const hits_per_row = 3;
     return (
       <div>
-        {props.results.map(function(e,i){ return i%hits_per_row ===0 && props.results.slice(i,i+hits_per_row)}).filter(function(e){return e; }).map(function(row,i){
+        {props.results.map(function(e,i){ return i%hits_per_row ===0 && props.results.slice(i,i+hits_per_row)}).filter(function(e){return e; }).map(function(row,row_num){
             return (
-              <SearchRow key={i} row={row}/>
+              <SearchRow key={row_num} row={row}/>
             )
         })}
     </div>
@@ -17,7 +17,7 @@ function SearchHits (props) {
 
 
 SearchHits.propTypes = {
-  results: PropTypes.array.isRequired,
+  results: PropTypes.object.isRequired,
 };
 
 function SearchRow (props) {
@@ -25,7 +25,7 @@ function SearchRow (props) {
     <div className="search-hits-row">
       { props.row.map(function(hit,_){
         return (
-          <SearchHit key={hit.id} hit={hit}/>
+          <SearchHit key={hit.get('id')} hit={hit}/>
         )
       })}
     </div>

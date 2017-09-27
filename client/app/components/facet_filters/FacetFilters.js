@@ -1,26 +1,20 @@
 var React = require('react');
 var TermFilter = require('./TermFilter')
 var PropTypes = require('prop-types');
-var { List } = require('immutable');
+var { List, Map } = require('immutable');
 
 function FacetFilters (props) {
 
   //TODO: Right now we dont use props.filters - we might if we have  a multi select facet
-  let facets = props.facets;
-
   return (
     <div className="filters">
-      {Object.keys(facets).map(function(key){
+      {props.facets.entrySeq().map(function(facet,key){
           return (
-            <div key={key} className="filter-box">
-                <TermFilter facet_filter={facets[key]} onClick={props.onFilterApply}/>
+            <div key={facet[0]} className="filter-box">
+                <TermFilter facet_filter={facet[1]} onClick={props.onFilterApply}/>
             </div>
           )
       })}
-      <div className="filter-box">
-      </div>
-      <div className="filter-box">
-      </div>
 
     </div>
 
@@ -36,7 +30,7 @@ FacetFilters.propTypes = {
 
 
 FacetFilters.defaultProps = {
-  facets: {},
+  facets: Map({}),
   filters: List()
 }
 

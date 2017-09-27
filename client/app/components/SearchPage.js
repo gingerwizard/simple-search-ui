@@ -6,8 +6,9 @@ var FacetFilters = require('./facet_filters/FacetFilters')
 var Results = require('./results/Results')
 var SearchManager = require('../core/SearchManager')
 var { List, Map } = require('immutable');
+var Immutable = require('immutable');
 
-const HITS_PER_PAGE = 10;
+const HITS_PER_PAGE = 12;
 class SearchPage extends React.Component {
 
   constructor(props) {
@@ -20,8 +21,7 @@ class SearchPage extends React.Component {
         filters: List(),
         from: 0
       }),
-      results: [
-      ],
+      results: List(),
       numHits: 0,
       pageCount: 10,
       config: {
@@ -73,13 +73,13 @@ class SearchPage extends React.Component {
   }
 
   handleSearch(query) {
-    SearchManager.search(query).then(function(results){
+    SearchManager.search(query).then(function(response){
       this.setState(function() {
         var newState = {};
         newState['query'] = query;
-        newState['numHits'] = results.numHits;
-        newState['results'] = results.results;
-        newState['facets'] = results.facets;
+        newState['numHits'] = response.numHits;
+        newState['results'] = Immutable.fromJS(response.results);
+        newState['facets'] = Immutable.fromJS(response.facets);
         return newState;
       });
     }.bind(this));
@@ -87,10 +87,9 @@ class SearchPage extends React.Component {
 
   componentDidMount() {
     SearchManager.config().then(function(response){
-      alert(JSON.stringify(response));
+      var config = Immutable.fromJS(response)
 
     });
-
   }
 
   render () {

@@ -29,15 +29,15 @@ class TermFilter extends React.Component {
     return (
       <KuiSideNav>
         <KuiSideNavTitle>
-          {this.props.facet_filter.label}
+          {this.props.facet_filter.get('label')}
         </KuiSideNavTitle>
-        { this.props.facet_filter.values.map(function(value,i){
+        { this.props.facet_filter.get('values').map(function(value,i){
             return (
-              <KuiSideNavItem key={value.key}>
-                <button onClick={() => this.props.onClick(this.FACET_FILTER_TYPE,{label:this.props.facet_filter.label,field:this.props.facet_filter.field,value:value.key})}>
-                  {value.key}
+              <KuiSideNavItem key={value.get('key')}>
+                <button onClick={() => this.props.onClick(this.FACET_FILTER_TYPE,{label:this.props.facet_filter.get('label'),field:this.props.facet_filter.get('field'),value:value.get('key')})}>
+                  {value.get('key')}
                   <KuiBadge className="term_filter" type="default">
-                    {value.count}
+                    {value.get('count')}
                   </KuiBadge>
                 </button>
               </KuiSideNavItem>
@@ -50,11 +50,7 @@ class TermFilter extends React.Component {
 }
 
 TermFilter.propTypes = {
-  facet_filter: PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    field: PropTypes.string.isRequired,
-    values: PropTypes.array.isRequired,
-  }),
+  facet_filter: PropTypes.object,
   onClick: PropTypes.func.isRequired,
 };
 

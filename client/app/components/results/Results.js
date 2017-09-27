@@ -36,7 +36,7 @@ function Results (props) {
 Results.propTypes = {
   query: PropTypes.object.isRequired,
   pageCount: PropTypes.number.isRequired,
-  results: PropTypes.array.isRequired,
+  results: PropTypes.object.isRequired,
   onSortChange: PropTypes.func.isRequired,
   removeFilter: PropTypes.func.isRequired,
   onPageChange: PropTypes.func.isRequired,
