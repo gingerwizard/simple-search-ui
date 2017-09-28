@@ -11,16 +11,31 @@ function FacetFilters (props) {
   //TODO: Right now we dont use props.filters - we might if we have  a multi select facet
   return (
     <div className="filters">
-      <div className="filter-box">
-          <RangeFilter min={0} max={100} step={1} onSlideChange={props.onFilterApply}/>
-      </div>
-      {props.facets.entrySeq().map(function(facet,key){
-          return (
-            <div key={facet[0]} className="filter-box">
-                <TermFilter facet_filter={facet[1]} onClick={props.onFilterApply}/>
-            </div>
-          )
-      })}
+      {
+        props.facets.entrySeq().map(function(facet,key){
+          switch(facet[1].get('type')){
+            case 'string_drilldown': {
+              if (props.facetValues.get(facet[0])) {
+                //needs a query from the frontend
+                return (
+                  <div key={facet[0]} className="filter-box">
+                      <TermFilter facet_filter={props.facetValues.get(facet[0])} onClick={props.onFilterApply}/>
+                  </div>
+                )
+              }
+              break;
+            }
+            case 'range_drilldown': {
+              return (
+                <div key={facet[0]} className="filter-box">
+                    <RangeFilter facet_filter={facet[1]} onSlideChange={props.onFilterApply}/>
+                </div>
+              )
+              break;
+            }
+          }
+      }
+    )}
 
     </div>
 
@@ -29,7 +44,8 @@ function FacetFilters (props) {
 
 
 FacetFilters.propTypes = {
-  facets: PropTypes.object,
+  facets: PropTypes.object.isRequired,
+  facetValues: PropTypes.object.isRequired,
   filters: PropTypes.object,
   onFilterApply: PropTypes.func.isRequired,
 };
@@ -37,6 +53,7 @@ FacetFilters.propTypes = {
 
 FacetFilters.defaultProps = {
   facets: Map({}),
+  facetValues: Map({}),
   filters: List()
 }
 

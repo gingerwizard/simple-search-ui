@@ -54,7 +54,6 @@ function buildFilter(filter){
       if (filter.values.length > 1) {
         range_filter['lte'] = filter.values[1]
       }
-      console.log(JSON.stringify(range_filter))
       return {
         'range': {
           [filter.field]:range_filter
@@ -62,6 +61,20 @@ function buildFilter(filter){
       }
   }
 }
+
+function buildFacet(facet){
+
+  switch(facet.type){
+    case 'string_drilldown':
+      return {
+        'terms':{
+          'field':facet.field,
+          'size':facet.size
+        }
+      }
+  }
+}
+
 
 /* Search ES */
 router.post('/',validate({body: query_schema}),function(req, res, next) {
@@ -76,7 +89,9 @@ router.post('/',validate({body: query_schema}),function(req, res, next) {
       'filters': req.body.filters ? req.body.filters.map(function(filter,_){
           return buildFilter(filter)
       }): [],
-      'facets': _.mapValues(config['facets'],function(facet){ return {'terms':{'field':facet.field,'size':facet.size}}})
+      'facets': _.mapValues(config['facets'],function(facet){
+          return buildFacet(facet);})
+
   }
   //TODO: we could cache the facets later maybe. Generating them each time seems unneccesary
   //TODO: Currently filters and facets don't respect the type - they will need to

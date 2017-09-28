@@ -28,29 +28,26 @@ class RangeFilter extends React.Component {
   }
 
   render() {
+    var min = this.props.facet_filter.get('min');
+    var max = this.props.facet_filter.get('max');
+    var step = this.props.facet_filter.get('step');
     return (
-
       <KuiSideNav>
         <KuiSideNavTitle>
           Metascore
         </KuiSideNavTitle>
         <div className="range-slider">
-          <Range onAfterChange={this.slideChange} tipProps={{placement: 'bottom'}} handleStyle={[{ borderColor: '#007BA7' },{ borderColor: '#007BA7' }]} trackStyle={[{ backgroundColor: '#14A7DF' }]} count={3} step={this.props.step} allowCross={false} min={this.props.min} max={this.props.max} defaultValue={[this.props.min, this.props.max]}/>
+          <Range onAfterChange={this.slideChange} tipProps={{placement: 'bottom'}} handleStyle={[{ borderColor: '#007BA7' },{ borderColor: '#007BA7' }]} trackStyle={[{ backgroundColor: '#14A7DF' }]} count={3} step={step} allowCross={false} min={min} max={max} defaultValue={[min, max]}/>
         </div>
       </KuiSideNav>
     )
   }
 
-
-
 }
 
 
 RangeFilter.propTypes = {
-  min: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired,
-  step: PropTypes.number.isRequired,
-  marks: PropTypes.array,
+  facet_filter: PropTypes.object.isRequired,
   onSlideChange: PropTypes.func.isRequired,
 };
 

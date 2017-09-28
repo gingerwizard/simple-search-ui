@@ -51,6 +51,14 @@ function config(){
           "type": "string_drilldown",
           "label": "Genres",
           "size":10
+        },
+        "metascore":{
+          "field": "metascore",
+          "type": "range_drilldown",
+          "label": "Metascore",
+          "min":0,
+          "max":100,
+          "step":1
         }
       },
       "query_template": "simple_search_ui",
