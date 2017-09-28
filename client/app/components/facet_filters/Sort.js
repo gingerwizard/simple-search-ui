@@ -47,22 +47,10 @@ class Sort extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       isPopoverOpen: false,
-      selected_item: props.sortOptions.get(props.defaultSort).get('label')
-    };
-    const panelTree = { 0: {
-        id: 0,
-        items: props.sortOptions.entrySeq().map(function(sort_option,key){
-            return {
-                name: sort_option[1].get('label'),
-                onClick: this.setSort.bind(this,sort_option[0],sort_option[1])
-            }
-        }.bind(this))
-      }
+      selected_item: props.defaultSort
     };
 
     this.handleChange = this.closePopover.bind(this);
-    this.idToPanelMap = panelTree;
-    this.idToPreviousPanelIdMap = extractPreviousIds(this.idToPanelMap);
   }
 
   setSort(selected_item,onSortChange) {
@@ -92,10 +80,22 @@ class Sort extends React.Component {
   }
 
   render () {
+    const panelTree = { 0: {
+        id: 0,
+        items: this.props.sortOptions.entrySeq().map(function(sort_option,key){
+            return {
+                name: sort_option[1].get('label'),
+                onClick: this.setSort.bind(this,sort_option[0],this.props.onSortChange)
+            }
+        }.bind(this))
+      }
+    };
+    this.idToPanelMap = panelTree;
+    this.idToPreviousPanelIdMap = extractPreviousIds(this.idToPanelMap);
 
     const button = (
       <KuiButton iconType="arrowDown" iconSide="right" onClick={this.onButtonClick.bind(this)} className="sort">
-        {this.state.selected_item}
+        {this.props.sortOptions.get(this.state.selected_item).get('label')}
       </KuiButton>
     );
 

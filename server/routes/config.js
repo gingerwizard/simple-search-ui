@@ -4,7 +4,7 @@ var SearchManager = require('../SearchManager')
 /* Grab Configuration from ES */
 router.get('/', function(req, res, next) {
 
-  res.json({"config":SearchManager.config()});
+  res.json(SearchManager.config());
 });
 
 module.exports = router;

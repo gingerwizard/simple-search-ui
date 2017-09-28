@@ -13,10 +13,6 @@ class ResultPagination extends React.Component {
     constructor(props) {
       super(props);
 
-      this.state = {
-        activePage: 0
-      };
-
       this.goToPage = this.goToPage.bind(this);
       this.onPageChange = props.onPageChange.bind(this);
     }
@@ -24,31 +20,36 @@ class ResultPagination extends React.Component {
 
     goToPage(pageNumber){
       this.onPageChange(pageNumber);
-      this.setState({
-        activePage: pageNumber,
-      });
     }
 
     render() {
-      return (
-        <div>
+      if (this.props.pageCount > 0){
+        return (
+          <div>
+            <KuiHorizontalRule/>
+              <KuiFlexGroup justifyContent="spaceAround">
+                <KuiPagination
+                  pageCount={this.props.pageCount}
+                  activePage={this.props.currentPage}
+                  onPageClick={this.goToPage}
+                />
+            </KuiFlexGroup>
+           <KuiHorizontalRule />
+          </div>
+        )
+      } else {
+        return <div>
           <KuiHorizontalRule/>
-            <KuiFlexGroup justifyContent="spaceAround">
-              <KuiPagination
-                pageCount={this.props.pageCount}
-                activePage={this.state.activePage}
-                onPageClick={this.goToPage}
-              />
-          </KuiFlexGroup>
-         <KuiHorizontalRule />
         </div>
-      );
+      }
+
     }
 }
 
 ResultPagination.propTypes = {
   onPageChange: PropTypes.func.isRequired,
   pageCount: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
 };
 
 module.exports = ResultPagination;

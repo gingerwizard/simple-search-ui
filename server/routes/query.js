@@ -14,7 +14,8 @@ const query_schema = {
   properties: {
     query: { type: 'string',required: true },
     sort: { type: 'string', enum: Object.keys(config['sort_options']) },
-    from: { type: 'integer'},
+    currentPage: { type: 'integer', minimum: 0, maximum: config['max_page']},
+    results_per_page: { type: 'integer', minimum: 0, maximum: config['max_results_per_page'] },
     filters: {  type: 'array', 'items': {
         type: 'object',
         properties: {
@@ -36,12 +37,13 @@ const query_schema = {
 /* Search ES */
 router.post('/',validate({body: query_schema}),function(req, res, next) {
   var sort_details = req.body.sort ? config['sort_options'][req.body.sort] : config['sort_options'][config['default_sort']]
+  var results_per_page = req.body.results_per_page ? req.body.results_per_page: config['default_results_per_page']
   var params = {
       "query_string": req.body.query,
-      "results_per_page": config["results_per_page"],
+      "size": results_per_page,
       "sort_field": sort_details.field,
       "sort_order": sort_details.order,
-      "from": req.body.from ? req.body.from : 0,
+      "from": req.body.currentPage ? req.body.currentPage * results_per_page : 0,
       "filters": req.body.filters ? req.body.filters.map(function(filter,_){
         return {
           "term": {

@@ -26,7 +26,9 @@ function search(template_id,params){
 //Returns app config from the .simple-search-config index
 function config(){
   return {
-      "results_per_page": 12,
+      "default_results_per_page": 12,
+      "max_results_per_page":100,
+      "max_page":100,
       "id_field":"imdbid",
       "title_field":"title",
       "img_field":"poster",

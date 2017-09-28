@@ -4,7 +4,8 @@ function search(query){
   return axios.post('/api/search',{
     query: query.get('text'),
     sort: query.get('sort'),
-    from: query.get('from'),
+    currentPage: query.get('currentPage'),
+    results_per_page: query.get('results_per_page'),
     filters: query.get('filters')
   }).then(function(response){
     return response.data;

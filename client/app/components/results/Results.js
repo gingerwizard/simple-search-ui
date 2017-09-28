@@ -27,7 +27,7 @@ function Results (props) {
         </KuiFlexItem>
       </KuiFlexGroup>
       <SearchHits results={props.results}/>
-      <ResultPagination onPageChange={props.onPageChange} pageCount={props.pageCount}/>
+      <ResultPagination onPageChange={props.onPageChange} pageCount={props.pageCount} currentPage={props.query.get('currentPage')}/>
     </div>
   )
 

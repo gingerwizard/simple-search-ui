@@ -8,7 +8,6 @@ var SearchManager = require('../core/SearchManager')
 var { List, Map } = require('immutable');
 var Immutable = require('immutable');
 
-const HITS_PER_PAGE = 12;
 class SearchPage extends React.Component {
 
   constructor(props) {
@@ -19,11 +18,12 @@ class SearchPage extends React.Component {
         text:null,
         sort:'relevance',
         filters: List(),
-        from: 0
+        currentPage: 0,
+        results_per_page: 12
       }),
       results: List(),
+      pageCount: 0,
       numHits: 0,
-      pageCount: 10,
       facets: List(),
       config: Map({
         'sort_options':Map({
@@ -47,7 +47,8 @@ class SearchPage extends React.Component {
   }
 
   handleQueryChange(query){
-    var newState = this.state.query.set('text',query);
+    //reset paging as well
+    var newState = this.state.query.set('text',query).set('currentPage',0);
     this.handleSearch(newState);
   }
 
@@ -60,18 +61,20 @@ class SearchPage extends React.Component {
 
   handleFilterApply(type,facet_filter){
     //TODO: Ignoring type here - willl need to handle in future
-    this.handleSearch(this.state.query.set('filters',this.state.query.get('filters').push(facet_filter)));
+    //reset paging as well
+    this.handleSearch(this.state.query.set('filters',this.state.query.get('filters').push(facet_filter)).set('currentPage',0));
   }
 
   handleFilterRemove(field,value){
     var new_filters = this.state.query.get('filters').filter(function(filter){
       return filter.field != field || filter.value != value;
     });
-    this.handleSearch(this.state.query.set('filters',new_filters));
+    //we also reset paging - maybe not desired
+    this.handleSearch(this.state.query.set('filters',new_filters).set('currentPage',0));
   }
 
   handlePageChange(page) {
-    this.handleSearch(this.state.query.set('from',HITS_PER_PAGE*page))
+    this.handleSearch(this.state.query.set('currentPage',page))
   }
 
   handleSearch(query) {
@@ -81,6 +84,7 @@ class SearchPage extends React.Component {
         state.numHits = response.numHits;
         state.results = Immutable.fromJS(response.results);
         state.facets = Immutable.fromJS(response.facets);
+        state.pageCount = Math.ceil(response.numHits/state.query.get('results_per_page'));
         return state;
       });
     }.bind(this));
@@ -88,9 +92,12 @@ class SearchPage extends React.Component {
 
   componentDidMount() {
     SearchManager.config().then(function(response){
-      var config = Immutable.fromJS(response)
-
-    });
+      this.setState(function(state){
+        state.config = Immutable.fromJS(response);
+        state.query.set('results_per_page',state.config.get('default_results_per_page'));
+        return state;
+      });
+    }.bind(this));
   }
 
   render () {
