@@ -146,12 +146,17 @@ body {
 
 .search-hit-image {
   margin: 0px 10px 10px 10px;
-  min-width: 170px;
-  min-height : 240px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  max-width: 200px;
+  min-width: 200px;
+  max-height: 275px;
+  min-height: 275px;
+}
 
+.search-hit-image img {
+  max-width: 200px;
+  min-width: 200px;
+  max-height: 275px;
+  min-height: 275px;
 }
 
 
