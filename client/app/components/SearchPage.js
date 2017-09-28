@@ -51,8 +51,7 @@ class SearchPage extends React.Component {
     }.bind(this));
   }
 
-  handleFilterApply(type,facet_filter){
-    //TODO: Ignoring type here - willl need to handle in future
+  handleFilterApply(facet_filter){
     //reset paging as well
     this.handleSearch(this.state.query.set('filters',this.state.query.get('filters').push(facet_filter)).set('currentPage',0));
   }
@@ -76,7 +75,8 @@ class SearchPage extends React.Component {
         state.numHits = response.numHits;
         state.results = Immutable.fromJS(response.results);
         state.facets = Immutable.fromJS(response.facets);
-        state.pageCount = Math.ceil(response.numHits/state.query.get('results_per_page'));
+        let num_pages = Math.ceil(response.numHits/state.query.get('results_per_page'));
+        state.pageCount = num_pages <= state.config.get('max_page') ? num_pages : state.config.get('max_page');
         return state;
       });
     }.bind(this));

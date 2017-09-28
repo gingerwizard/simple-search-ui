@@ -178,6 +178,10 @@ body {
   width: 100%;
 }
 
+.range-slider {
+  margin: 10px 5px 25px 5px;
+}
+
 .result-details {
   height: 30px;
 }
