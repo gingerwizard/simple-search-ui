@@ -167,9 +167,9 @@ export class KuiContextMenu extends Component {
     if (this.state.isTransitioning) {
       this.updateHeight();
     }
-
     this.updateFocusedMenuItem();
   }
+
 
   componentWillUnmount() {
     clearTimeout(this.resetTransitionTimeout);

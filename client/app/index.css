@@ -204,6 +204,10 @@ body {
   height: 30px;
 }
 
+.sort-button {
+  width:100%;
+}
+
 .term_filter {
   float: right;
 }

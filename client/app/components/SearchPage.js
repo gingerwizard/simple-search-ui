@@ -25,16 +25,8 @@ class SearchPage extends React.Component {
       pageCount: 0,
       numHits: 0,
       facets: List(),
-      config: Map({
-        'sort_options':Map({
-          'relevance':Map({
-            'label':'Relevance',
-            'field':'_score',
-            'order':'desc'
-          })
-        }),
-        'default_sort':'relevance'
-      })
+      config: Map(),
+      isReady: false
     };
 
 
@@ -95,37 +87,42 @@ class SearchPage extends React.Component {
       this.setState(function(state){
         state.config = Immutable.fromJS(response);
         state.query.set('results_per_page',state.config.get('default_results_per_page'));
+        state.isReady = true;
         return state;
       });
     }.bind(this));
   }
 
   render () {
-    return (
-      <div>
-        <div className="nav-bar">
-        </div>
-        <div className="nav-bar-contents">
-          <div className="app-label-left"/>
-          <div className="search-box">
-            <SearchBox onSubmit={this.handleQueryChange}/>
+    if (this.state.isReady) {
+      return (
+        <div>
+          <div className="nav-bar">
           </div>
-          <div className="app-label-right"/>
-        </div>
-        <div className="main-panel">
-          <div className="left-panel">
-            <FacetFilters facets={this.state.facets} filters={this.state.query.get('filters')} onFilterApply={this.handleFilterApply}/>
+          <div className="nav-bar-contents">
+            <div className="app-label-left"/>
+            <div className="search-box">
+              <SearchBox onSubmit={this.handleQueryChange}/>
+            </div>
+            <div className="app-label-right"/>
           </div>
-          <div className="center-panel">
-            <Results defaultSort={this.state.config.get('default_sort')} sortOptions={this.state.config.get('sort_options')} results={this.state.results} pageCount={this.state.pageCount} query={this.state.query} numHits={this.state.numHits} onPageChange={this.handlePageChange} onSortChange={this.handleSortChange} removeFilter={this.handleFilterRemove}/>
-          </div>
-          <div className="right-panel">
-            <div className="App">
+          <div className="main-panel">
+            <div className="left-panel">
+              <FacetFilters facets={this.state.facets} filters={this.state.query.get('filters')} onFilterApply={this.handleFilterApply}/>
+            </div>
+            <div className="center-panel">
+              <Results defaultSort={this.state.config.get('default_sort')} sortOptions={this.state.config.get('sort_options')} results={this.state.results} pageCount={this.state.pageCount} query={this.state.query} numHits={this.state.numHits} onPageChange={this.handlePageChange} onSortChange={this.handleSortChange} removeFilter={this.handleFilterRemove}/>
+            </div>
+            <div className="right-panel">
+              <div className="App">
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    } else {
+      return (<div></div>)
+    }
   }
 }
 
