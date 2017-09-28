@@ -24,7 +24,9 @@ class RangeFilter extends React.Component {
   }
 
   slideChange(values){
-    this.props.onSlideChange({type:this.FACET_FILTER_TYPE,label:'Metascore',field:'metascore',values:values})
+    if (values[0] != this.props.facet_filter.get('min') || values[1] != this.props.facet_filter.get('max')) {
+      this.props.onSlideChange({id:this.props.facet_id,type:this.FACET_FILTER_TYPE,label:'Metascore',field:'metascore',values:values})
+    }
   }
 
   render() {
@@ -47,6 +49,7 @@ class RangeFilter extends React.Component {
 
 
 RangeFilter.propTypes = {
+  facet_id: PropTypes.string.isRequired,
   facet_filter: PropTypes.object.isRequired,
   onSlideChange: PropTypes.func.isRequired,
 };

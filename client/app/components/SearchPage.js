@@ -17,7 +17,7 @@ class SearchPage extends React.Component {
       query: Map ({
         text:null,
         sort:'relevance',
-        filters: List(),
+        filters: Map(),
         currentPage: 0,
         results_per_page: 12
       }),
@@ -28,7 +28,6 @@ class SearchPage extends React.Component {
       config: Map(),
       isReady: false
     };
-
 
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSortChange = this.handleSortChange.bind(this);
@@ -53,15 +52,13 @@ class SearchPage extends React.Component {
 
   handleFilterApply(facet_filter){
     //reset paging as well
-    this.handleSearch(this.state.query.set('filters',this.state.query.get('filters').push(facet_filter)).set('currentPage',0));
+    //alert(JSON.stringify(facet_filter))
+    this.handleSearch(this.state.query.setIn(['filters',facet_filter.id],facet_filter).set('currentPage',0));
   }
 
-  handleFilterRemove(field,value){
-    var new_filters = this.state.query.get('filters').filter(function(filter){
-      return filter.field != field || filter.value != value;
-    });
+  handleFilterRemove(filter_id){
     //we also reset paging - maybe not desired
-    this.handleSearch(this.state.query.set('filters',new_filters).set('currentPage',0));
+    this.handleSearch(this.state.query.deleteIn(['filters',filter_id]).set('currentPage',0));
   }
 
   handlePageChange(page) {

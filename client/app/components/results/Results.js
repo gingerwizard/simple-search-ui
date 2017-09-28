@@ -20,7 +20,7 @@ function Results (props) {
           <ResultDetails query={props.query.get('text')} numHits={props.numHits}/>
         </KuiFlexItem>
         <KuiFlexItem>
-          <FilterBar filters={props.query.get('filters')} onClick={props.removeFilter}/>
+          <FilterBar filters={props.query.get('filters')} removeFilter={props.removeFilter}/>
         </KuiFlexItem>
         <KuiFlexItem grow={false}>
           <Sort defaultSort={props.defaultSort} onSortChange={props.onSortChange} sortOptions={props.sortOptions}/>

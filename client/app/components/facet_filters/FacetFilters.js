@@ -19,7 +19,7 @@ function FacetFilters (props) {
                 //needs a query from the frontend
                 return (
                   <div key={facet[0]} className="filter-box">
-                      <TermFilter facet_filter={props.facetValues.get(facet[0])} onClick={props.onFilterApply}/>
+                      <TermFilter facet_id={facet[0]} facet_filter={props.facetValues.get(facet[0])} onClick={props.onFilterApply}/>
                   </div>
                 )
               }
@@ -28,7 +28,7 @@ function FacetFilters (props) {
             case 'range_drilldown': {
               return (
                 <div key={facet[0]} className="filter-box">
-                    <RangeFilter facet_filter={facet[1]} onSlideChange={props.onFilterApply}/>
+                    <RangeFilter facet_id={facet[0]} facet_filter={facet[1]} onSlideChange={props.onFilterApply}/>
                 </div>
               )
               break;
@@ -54,7 +54,7 @@ FacetFilters.propTypes = {
 FacetFilters.defaultProps = {
   facets: Map({}),
   facetValues: Map({}),
-  filters: List()
+  filters: Map()
 }
 
 

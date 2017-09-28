@@ -32,9 +32,10 @@ class TermFilter extends React.Component {
           {this.props.facet_filter.get('label')}
         </KuiSideNavTitle>
         { this.props.facet_filter.get('values').map(function(value,i){
+            var unique_id = this.props.facet_id+'-'+value.get('key');
             return (
               <KuiSideNavItem key={value.get('key')}>
-                <button onClick={() => this.props.onClick({type:this.FACET_FILTER_TYPE,label:this.props.facet_filter.get('label'),field:this.props.facet_filter.get('field'),values:[value.get('key')]})}>
+                <button onClick={() => this.props.onClick({id:unique_id,type:this.FACET_FILTER_TYPE,label:this.props.facet_filter.get('label'),field:this.props.facet_filter.get('field'),values:[value.get('key')]})}>
                   {value.get('key')}
                   <KuiBadge className="term_filter" type="default">
                     {value.get('count')}
@@ -50,6 +51,7 @@ class TermFilter extends React.Component {
 }
 
 TermFilter.propTypes = {
+  facet_id: PropTypes.string.isRequired,
   facet_filter: PropTypes.object,
   onClick: PropTypes.func.isRequired,
 };
