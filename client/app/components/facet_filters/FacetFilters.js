@@ -7,7 +7,6 @@ var { List, Map } = require('immutable');
 
 function FacetFilters (props) {
 
-
   //TODO: Right now we dont use props.filters - we might if we have  a multi select facet
   return (
     <div className="filters">
@@ -26,9 +25,10 @@ function FacetFilters (props) {
               break;
             }
             case 'range_drilldown': {
+              console.log(props.filters.get(facet[0]))
               return (
                 <div key={facet[0]} className="filter-box">
-                    <RangeFilter is_filtered={props.filters.has(facet[0])} facet_id={facet[0]} facet_filter={facet[1]} onSlideChange={props.onFilterApply}/>
+                    <RangeFilter value={ props.filters.has(facet[0]) ? props.filters.get(facet[0]).values : [0,100] } is_filtered={props.filters.has(facet[0])} facet_id={facet[0]} facet_filter={facet[1]} onSlideChange={props.onFilterApply}/>
                 </div>
               )
               break;
