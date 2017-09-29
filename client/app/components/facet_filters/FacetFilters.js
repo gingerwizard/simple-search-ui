@@ -28,7 +28,7 @@ function FacetFilters (props) {
             case 'range_drilldown': {
               return (
                 <div key={facet[0]} className="filter-box">
-                    <RangeFilter facet_id={facet[0]} facet_filter={facet[1]} onSlideChange={props.onFilterApply}/>
+                    <RangeFilter is_filtered={props.filters.has(facet[0])} facet_id={facet[0]} facet_filter={facet[1]} onSlideChange={props.onFilterApply}/>
                 </div>
               )
               break;

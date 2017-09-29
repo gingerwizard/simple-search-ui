@@ -34,10 +34,10 @@ function config(){
       "img_field":"poster",
       "description_field":"plot",
       "facets": {
-        "writers":{
-          "field": "writer",
+        "director":{
+          "field": "director",
           "type": "string_drilldown",
-          "label": "Writers",
+          "label": "Directors",
           "size":10
         },
         "actors":{

@@ -18,7 +18,8 @@ class RangeFilter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      filter_id: this.props.facet_id,
+      is_filtered: false,
     };
     this.slideChange = this.slideChange.bind(this);
   }
@@ -27,12 +28,18 @@ class RangeFilter extends React.Component {
     if (values[0] != this.props.facet_filter.get('min') || values[1] != this.props.facet_filter.get('max')) {
       this.props.onSlideChange({id:this.props.facet_id,type:this.FACET_FILTER_TYPE,label:'Metascore',field:'metascore',values:values})
     }
+    this.setState(function(){
+      this.is_filtered = true;
+    });
   }
 
   render() {
     var min = this.props.facet_filter.get('min');
     var max = this.props.facet_filter.get('max');
     var step = this.props.facet_filter.get('step');
+    var start = min;
+    var end = max;
+    alert('here')
     return (
       <KuiSideNav>
         <KuiSideNavTitle>
@@ -44,7 +51,6 @@ class RangeFilter extends React.Component {
       </KuiSideNav>
     )
   }
-
 }
 
 
@@ -52,6 +58,7 @@ RangeFilter.propTypes = {
   facet_id: PropTypes.string.isRequired,
   facet_filter: PropTypes.object.isRequired,
   onSlideChange: PropTypes.func.isRequired,
+  is_filtered: PropTypes.bool.isRequired,
 };
 
 

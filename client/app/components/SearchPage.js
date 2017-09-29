@@ -106,7 +106,7 @@ class SearchPage extends React.Component {
           <div className="main-panel">
             <div className="left-panel">
               <FacetFilters facets={this.state.config.get('facets')} facetValues={this.state.facets} filters={this.state.query.get('filters')} onFilterApply={this.handleFilterApply}/>
-            </div>
+          </div>
             <div className="center-panel">
               <Results defaultSort={this.state.config.get('default_sort')} sortOptions={this.state.config.get('sort_options')} results={this.state.results} pageCount={this.state.pageCount} query={this.state.query} numHits={this.state.numHits} onPageChange={this.handlePageChange} onSortChange={this.handleSortChange} removeFilter={this.handleFilterRemove}/>
             </div>
