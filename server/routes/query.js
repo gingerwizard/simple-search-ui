@@ -31,7 +31,7 @@ const query_schema = {
           type: {
             type: 'string',
             required: true,
-            enum: ['string_drilldown','range_drilldown']
+            enum: ['value_listing','numeric_range','date_histogram']
           }
         }
       }
@@ -41,13 +41,25 @@ const query_schema = {
 
 function buildFilter(filter){
   switch(filter.type){
-    case 'string_drilldown':
+    case 'value_listing':
       return {
         'term': {
           [filter.field]:filter.values[0]
         }
       }
-    case 'range_drilldown':
+    case 'numeric_range':
+      var range_filter = {
+        'gte':filter.values[0]
+      }
+      if (filter.values.length > 1) {
+        range_filter['lte'] = filter.values[1]
+      }
+      return {
+        'range': {
+          [filter.field]:range_filter
+        }
+      }
+    case 'numeric_histogram':
       var range_filter = {
         'gte':filter.values[0]
       }
@@ -65,13 +77,20 @@ function buildFilter(filter){
 function buildFacet(facet){
 
   switch(facet.type){
-    case 'string_drilldown':
+    case 'value_listing':
       return {
         'terms':{
           'field':facet.field,
           'size':facet.size
         }
       }
+    case 'numeric_histogram':
+      return {
+        'histogram':{
+          'field': facet.field,
+          'interval': facet.interval
+        }
+    }
   }
 }
 

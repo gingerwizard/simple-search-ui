@@ -36,29 +36,35 @@ function config(){
       "facets": {
         "director":{
           "field": "director",
-          "type": "string_drilldown",
+          "type": "value_listing",
           "label": "Directors",
           "size":10
         },
         "actors":{
           "field": "actors",
-          "type": "string_drilldown",
+          "type": "value_listing",
           "label": "Actors",
           "size":10
         },
         "genre":{
           "field": "genre",
-          "type": "string_drilldown",
+          "type": "value_listing",
           "label": "Genres",
           "size":10
         },
         "metascore":{
           "field": "metascore",
-          "type": "range_drilldown",
+          "type": "numeric_range",
           "label": "Metascore",
           "min":0,
           "max":100,
           "step":1
+        },
+        "imdbvotes": {
+          "field": "imdbvotes",
+          "type": "numeric_histogram",
+          "label": "Number of IMDB Votes",
+          "interval": 100
         }
       },
       "query_template": "simple_search_ui",
