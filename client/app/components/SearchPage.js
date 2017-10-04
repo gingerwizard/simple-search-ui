@@ -7,6 +7,8 @@ var Results = require('./results/Results')
 var SearchManager = require('../core/SearchManager')
 var { List, Map } = require('immutable');
 var Immutable = require('immutable');
+import _ from 'lodash';
+
 
 class SearchPage extends React.Component {
 
@@ -50,10 +52,17 @@ class SearchPage extends React.Component {
     }.bind(this));
   }
 
-  handleFilterApply(facet_filter){
-    //reset paging as well
-    //alert(JSON.stringify(facet_filter))
-    this.handleSearch(this.state.query.setIn(['filters',facet_filter.id],facet_filter).set('currentPage',0));
+  handleFilterApply(facet_filter,update_query=true){
+    if (update_query) {
+      //reset paging as well
+      this.handleSearch(this.state.query.setIn(['filters',facet_filter.id],facet_filter).set('currentPage',0));
+    } else {
+      //just adds the filter but doesn't update the query
+      this.setState(function(state){
+        state.query = this.state.query.setIn(['filters',facet_filter.id],facet_filter);
+        return state;
+      });
+    }
   }
 
   handleFilterRemove(filter_id){
@@ -105,7 +114,7 @@ class SearchPage extends React.Component {
           </div>
           <div className="main-panel">
             <div className="left-panel">
-              <FacetFilters facets={this.state.config.get('facets')} facetValues={this.state.facets} filters={this.state.query.get('filters')} onFilterApply={this.handleFilterApply}/>
+              <FacetFilters facets={this.state.config.get('facets')} facetValues={this.state.facets} filters={this.state.query.get('filters')} onFilterApply={this.handleFilterApply} onFilterRemove={this.handleFilterRemove}/>
           </div>
             <div className="center-panel">
               <Results defaultSort={this.state.config.get('default_sort')} sortOptions={this.state.config.get('sort_options')} results={this.state.results} pageCount={this.state.pageCount} query={this.state.query} numHits={this.state.numHits} onPageChange={this.handlePageChange} onSortChange={this.handleSortChange} removeFilter={this.handleFilterRemove}/>

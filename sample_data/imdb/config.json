@@ -104,6 +104,9 @@
           "type": "keyword",
           "ignore_above": 256
         },
+        "imdb_num":{
+          "type": "integer"
+        },
         "imdbrating": {
           "ignore_malformed": true,
           "type": "half_float"

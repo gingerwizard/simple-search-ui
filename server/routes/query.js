@@ -93,6 +93,7 @@ router.post('/',validate({body: query_schema}),function(req, res, next) {
           return buildFacet(facet);})
 
   }
+  console.log(JSON.stringify(params))
   //TODO: we could cache the facets later maybe. Generating them each time seems unneccesary
   //TODO: Currently filters and facets don't respect the type - they will need to
   SearchManager.search(config['query_template'],params).then(function(resp){

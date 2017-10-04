@@ -25,10 +25,11 @@ function FacetFilters (props) {
               break;
             }
             case 'range_drilldown': {
-              console.log(props.filters.get(facet[0]))
               return (
                 <div key={facet[0]} className="filter-box">
-                    <RangeFilter value={ props.filters.has(facet[0]) ? props.filters.get(facet[0]).values : [0,100] } is_filtered={props.filters.has(facet[0])} facet_id={facet[0]} facet_filter={facet[1]} onSlideChange={props.onFilterApply}/>
+                    <RangeFilter value={ props.filters.has(facet[0]) ? props.filters.get(facet[0]).values : [facet[1].get('min'),facet[1].get('max')] }
+                    is_filtered={props.filters.has(facet[0])} facet_id={facet[0]} facet_filter={facet[1]} onSlideChange={props.onFilterApply}
+                    onSlideReset={props.onFilterRemove}/>
                 </div>
               )
               break;
@@ -48,6 +49,7 @@ FacetFilters.propTypes = {
   facetValues: PropTypes.object.isRequired,
   filters: PropTypes.object,
   onFilterApply: PropTypes.func.isRequired,
+  onFilterRemove: PropTypes.func.isRequired,
 };
 
 
