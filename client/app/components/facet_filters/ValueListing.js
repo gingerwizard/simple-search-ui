@@ -7,9 +7,9 @@ import {
   KuiBadge,
 } from '../../ui_framework/components';
 
-class TermFilter extends React.Component {
+class ValueListing extends React.Component {
 
-  FACET_FILTER_TYPE = "string_drilldown";
+  FACET_FILTER_TYPE = "value_listing";
 
   constructor(props) {
     super(props);
@@ -50,11 +50,11 @@ class TermFilter extends React.Component {
   }
 }
 
-TermFilter.propTypes = {
+ValueListing.propTypes = {
   facet_id: PropTypes.string.isRequired,
   facet_filter: PropTypes.object,
   onClick: PropTypes.func.isRequired,
 };
 
 
-module.exports = TermFilter;
+module.exports = ValueListing;

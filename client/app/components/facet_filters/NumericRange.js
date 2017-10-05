@@ -13,9 +13,9 @@ const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
 
 
-class RangeFilter extends React.Component {
+class NumericRange extends React.Component {
 
-  FACET_FILTER_TYPE = "range_drilldown"
+  FACET_FILTER_TYPE = "numeric_range"
 
   constructor(props) {
     super(props);
@@ -39,7 +39,7 @@ class RangeFilter extends React.Component {
     return (
       <KuiSideNav>
         <KuiSideNavTitle>
-          Metascore
+          {this.props.facet_filter.get('label')}
         </KuiSideNavTitle>
         <div className="range-slider">
           <Range value={this.props.value} onAfterChange={this.slideAfterChange} onChange={this.slideChange} tipProps={{placement: 'bottom'}}
@@ -52,7 +52,7 @@ class RangeFilter extends React.Component {
 }
 
 
-RangeFilter.propTypes = {
+NumericRange.propTypes = {
   facet_id: PropTypes.string.isRequired,
   facet_filter: PropTypes.object.isRequired,
   onSlideChange: PropTypes.func.isRequired,
@@ -63,4 +63,4 @@ RangeFilter.propTypes = {
 };
 
 
-module.exports = RangeFilter;
+module.exports = NumericRange;
