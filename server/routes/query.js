@@ -31,7 +31,7 @@ const query_schema = {
           type: {
             type: 'string',
             required: true,
-            enum: ['value_listing','numeric_range','date_histogram']
+            enum: ['value_listing','numeric_range','numeric_histogram']
           }
         }
       }
@@ -120,17 +120,14 @@ router.post('/',validate({body: query_schema}),function(req, res, next) {
     res.json({
       'numHits':resp.hits.total,
       'facets': _.transform(resp.aggregations, function(result, value, key){
-        result[key] = {
-          'field':config['facets'][key].field,
-          'type':'string_drilldown',
-          'label':config['facets'][key].label,
+        result[key] = Object.assign({}, config['facets'][key], {
           'values':value.buckets.map(function(value){
             return {
               'key':value.key,
               'count':value.doc_count
             }
           })
-        }
+        })
       },{}),
       'results': resp.hits.hits.map(function(hit){
         return {

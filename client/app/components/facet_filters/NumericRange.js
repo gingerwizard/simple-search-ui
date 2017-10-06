@@ -24,12 +24,12 @@ class NumericRange extends React.Component {
   }
 
   slideChange(values){
-    this.props.onSlideChange({id:this.props.facet_id,type:this.FACET_FILTER_TYPE,label:'Metascore',field:'metascore',values:values},false);
+    this.props.onSlideChange({id:this.props.facet_id,type:this.props.facet_filter.get('type'),label:this.props.facet_filter.get('label'),field:this.props.facet_filter.get('field'),values:values},false);
   }
 
   slideAfterChange(values){
     if (values[0] != this.props.facet_filter.get('min') || values[1] != this.props.facet_filter.get('max')){
-      this.props.onSlideChange({id:this.props.facet_id,type:this.FACET_FILTER_TYPE,label:'Metascore',field:'metascore',values:values});
+      this.props.onSlideChange({id:this.props.facet_id,type:this.props.facet_filter.get('type'),label:this.props.facet_filter.get('label'),field:this.props.facet_filter.get('field'),values:values});
     } else {
       this.props.onSlideReset(this.props.facet_id);
     }
@@ -43,8 +43,8 @@ class NumericRange extends React.Component {
         </KuiSideNavTitle>
         <div className="range-slider">
           <Range value={this.props.value} onAfterChange={this.slideAfterChange} onChange={this.slideChange} tipProps={{placement: 'bottom'}}
-          handleStyle={[{ borderColor: '#007BA7' },{ borderColor: '#007BA7' }]} trackStyle={[{ backgroundColor: '#14A7DF' }]} count={3}
-          step={this.props.facet_filter.get('step')} allowCross={false} min={this.props.facet_filter.get('min')} max={this.props.facet_filter.get('max')}/>
+            handleStyle={[{ borderColor: '#007BA7' },{ borderColor: '#007BA7' }]} trackStyle={[{ backgroundColor: '#14A7DF' }]} count={3}
+            step={this.props.facet_filter.get('step')} allowCross={false} min={this.props.facet_filter.get('min')} max={this.props.facet_filter.get('max')}/>
         </div>
       </KuiSideNav>
     )

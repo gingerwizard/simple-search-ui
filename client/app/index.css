@@ -182,9 +182,30 @@ body {
   margin: 10px 5px 25px 5px;
 }
 
-.date-histogram {
-
+.histogram {
+  width: 100%;
+  height: 200px;
+  display: flex;
 }
+
+.histogram-bar {
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.bar-select {
+  background-color: #E2F5FB;
+}
+
+.bar-select div {
+  background-color: #1485AD;
+}
+
+.bar-unselected div {
+  background-color: #14A7DF;
+}
+
 
 .result-details {
   height: 30px;

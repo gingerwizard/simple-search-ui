@@ -38,19 +38,22 @@ function config(){
           "field": "director",
           "type": "value_listing",
           "label": "Directors",
-          "size":10
+          "size":10,
+          "order":3
         },
         "actors":{
           "field": "actors",
           "type": "value_listing",
           "label": "Actors",
-          "size":10
+          "size":10,
+          "order":4
         },
         "genre":{
           "field": "genre",
           "type": "value_listing",
           "label": "Genres",
-          "size":10
+          "size":10,
+          "order":5
         },
         "metascore":{
           "field": "metascore",
@@ -58,13 +61,15 @@ function config(){
           "label": "Metascore",
           "min":0,
           "max":100,
-          "step":1
+          "step":1,
+          "order":0
         },
         "imdbvotes": {
           "field": "imdbvotes",
           "type": "numeric_histogram",
           "label": "Number of IMDB Votes",
-          "interval": 100
+          "interval": 100,
+          "order":1
         }
       },
       "query_template": "simple_search_ui",
