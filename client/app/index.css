@@ -191,18 +191,19 @@ body {
 .histogram-bar {
   height: 100%;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .bar-select {
   background-color: #E2F5FB;
 }
 
-.bar-select div {
+.bar-select > .bar-fill {
   background-color: #1485AD;
 }
 
-.bar-unselected div {
+.bar-unselected > .bar-fill {
   background-color: #14A7DF;
 }
 
@@ -244,4 +245,40 @@ body {
 
 .term_filter {
   float: right;
+}
+
+
+
+
+.tooltip {
+  margin-top: 5px;
+  height: 20px;
+  width:100%;
+  min-height: 20px;
+  /* display: none; */
+}
+
+.tooltip-body {
+  border-radius: 4px;
+  /* display: none; */
+  background-color: #777 !important;
+  padding: 5px;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  position: absolute;
+  font-size: 10px;
+}
+
+.tooltip_arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-bottom-color: #777;
+  top: 0;
+  left: 50%;
+  margin-left: -.3125rem;
+  border-width: 0 5px 5px;
 }

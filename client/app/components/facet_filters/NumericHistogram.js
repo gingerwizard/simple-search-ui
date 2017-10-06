@@ -7,10 +7,9 @@ import {
   KuiSideNavTitle,
   KuiBadge,
 } from '../../ui_framework/components';
-
 import { SelectableGroup } from 'react-selectable-fast';
+import HistogramBar from './HistogramBar';
 
-import HistogramBar from './HistogramBar'
 class NumericHistogram extends React.Component {
 
   FACET_FILTER_TYPE = "numeric_range"
@@ -18,21 +17,38 @@ class NumericHistogram extends React.Component {
   constructor(props) {
     super(props);
     this.handleSelection = this.handleSelection.bind(this);
+    this.handleSelecting = this.handleSelecting.bind(this);
+    this.identify_bounds = this.identify_bounds.bind(this)
+    this.state = {
+      'tool_tip': null
+    }
+  }
+
+  identify_bounds(selectedKeys){
+    let lower_bound = selectedKeys[0].props.range;
+    let upper_bound = selectedKeys[selectedKeys.length - 1].props.range;
+    //neccessary if the user drags right to left
+    let lower_val = lower_bound.lower < upper_bound.lower ? lower_bound.lower : upper_bound.lower;
+    let upper_val = upper_bound.upper > lower_bound.upper ? upper_bound.upper: lower_bound.upper;
+    return [lower_val,upper_val]
+  }
+
+  handleSelection(selectedKeys) {
+    if (selectedKeys[0]) {
+      let bounds = this.identify_bounds(selectedKeys)
+      this.props.onSelectRange({id:this.props.facet_id,type:this.props.facet_filter.get('type'),
+        label:this.props.facet_filter.get('label'),field:this.props.facet_filter.get('field'),
+        values:[bounds[0],bounds[1]]});
+    }
   }
 
 
-  handleSelection(selectedKeys) {
-    //selectedKeys[0].selectable.clearSelection;
-    var lower_bound = selectedKeys[0];
+  handleSelecting(selectedKeys) {
     if (selectedKeys[0]) {
-      let lower_bound = selectedKeys[0].props.range;
-      let upper_bound = selectedKeys[selectedKeys.length - 1].props.range;
-      //neccessary if the user drags right to left
-      let lower_val = lower_bound.lower < upper_bound.lower ? lower_bound.lower : upper_bound.lower;
-      let upper_val = upper_bound.upper > lower_bound.upper ? upper_bound.upper: lower_bound.upper;
-      this.props.onSelectRange({id:this.props.facet_id,type:this.props.facet_filter.get('type'),
-        label:this.props.facet_filter.get('label'),field:this.props.facet_filter.get('field'),
-        values:[lower_val,upper_val]});
+      let bounds = this.identify_bounds(selectedKeys)
+      this.setState({
+        'tool_tip':bounds[0] +' - '+bounds[1]
+      })
     }
   }
 
@@ -50,12 +66,13 @@ class NumericHistogram extends React.Component {
           {
 
               this.props.facet_filter.get('values').map(function(value,i){
-              var unique_id = this.props.facet_id+'-'+value.get('key');
-              var height = (value.get('count')/total)*100;
-              return (
-                <HistogramBar range={{'lower':value.get('key'),'upper':value.get('key')+this.props.facet_filter.get('interval')}} height={height} width={bar_width} key={value.get('key')} />
-              )
+                var unique_id = this.props.facet_id+'-'+value.get('key');
+                var height = (value.get('count')/total)*100;
+                return (
+                    <HistogramBar tool_tip={this.state.tool_tip} range={{'lower':value.get('key'),'upper':value.get('key')+this.props.facet_filter.get('interval')}} height={height} width={bar_width} key={value.get('key')}/>
+                )
           }.bind(this))}
+
         </SelectableGroup>
       </KuiSideNav>
 

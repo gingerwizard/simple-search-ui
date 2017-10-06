@@ -14,15 +14,12 @@ function FacetFilters (props) {
       {
         props.facets.entrySeq().map(function(facet,key){
           switch(facet[1].get('type')){
-            case 'value_listing': {
-              if (props.facetValues.get(facet[0])) {
-                //needs a query from the frontend
+            case 'value_listing': {                //needs a query from the frontend
                 return (
                   <div key={facet[0]} className="filter-box">
-                      <ValueListing facet_id={facet[0]} facet_filter={props.facetValues.get(facet[0])} onClick={props.onFilterApply}/>
+                      <ValueListing facet_id={facet[0]} facet_filter={facet[1]} onClick={props.onFilterApply}/>
                   </div>
                 )
-              }
               break;
             }
             case 'numeric_range': {
@@ -36,13 +33,11 @@ function FacetFilters (props) {
               break;
             }
             case 'numeric_histogram': {
-              if (props.facetValues.get(facet[0])) {
                 return (
                   <div key={facet[0]} className="filter-box">
-                    <NumericHistogram onSelectRange={props.onFilterApply} facet_id={facet[0]} facet_filter={props.facetValues.get(facet[0])}/>
+                    <NumericHistogram onSelectRange={props.onFilterApply} facet_id={facet[0]} facet_filter={facet[1]}/>
                   </div>
                 )
-              }
             }
           }
       }
@@ -56,7 +51,6 @@ function FacetFilters (props) {
 
 FacetFilters.propTypes = {
   facets: PropTypes.object.isRequired,
-  facetValues: PropTypes.object.isRequired,
   filters: PropTypes.object,
   onFilterApply: PropTypes.func.isRequired,
   onFilterRemove: PropTypes.func.isRequired,
@@ -65,7 +59,6 @@ FacetFilters.propTypes = {
 
 FacetFilters.defaultProps = {
   facets: Map({}),
-  facetValues: Map({}),
   filters: Map()
 }
 

@@ -47,7 +47,7 @@ function buildFilter(filter){
           [filter.field]:filter.values[0]
         }
       }
-    case 'numeric_range':
+    default:
       var range_filter = {
         'gte':filter.values[0]
       }
@@ -59,23 +59,10 @@ function buildFilter(filter){
           [filter.field]:range_filter
         }
       }
-    case 'numeric_histogram':
-      var range_filter = {
-        'gte':filter.values[0]
-      }
-      if (filter.values.length > 1) {
-        range_filter['lte'] = filter.values[1]
-      }
-      return {
-        'range': {
-          [filter.field]:range_filter
-        }
-      }
-  }
+    }
 }
 
 function buildFacet(facet){
-
   switch(facet.type){
     case 'value_listing':
       return {
@@ -90,7 +77,32 @@ function buildFacet(facet){
           'field': facet.field,
           'interval': facet.interval
         }
+      }
+    case 'numeric_range':
+      return {
+        'stats':{
+          'field':facet.field
+        }
+      }
     }
+}
+
+
+function parseFacetResponse(type,value){
+  switch(type){
+    case 'numeric_range':
+      return {
+          //TODO: This needs to check if the min or max should be used or
+      }
+    default:
+      return {
+        'values':value.buckets.map(function(value){
+          return {
+            'key':value.key,
+            'count':value.doc_count
+          }
+        })
+      }
   }
 }
 
@@ -116,18 +128,12 @@ router.post('/',validate({body: query_schema}),function(req, res, next) {
   //TODO: we could cache the facets later maybe. Generating them each time seems unneccesary
   //TODO: Currently filters and facets don't respect the type - they will need to
   SearchManager.search(config['query_template'],params).then(function(resp){
-    //console.log(JSON.stringify(resp.hits.hits))
+    //console.log(JSON.stringify(resp))
     res.json({
       'numHits':resp.hits.total,
       'facets': _.transform(resp.aggregations, function(result, value, key){
-        result[key] = Object.assign({}, config['facets'][key], {
-          'values':value.buckets.map(function(value){
-            return {
-              'key':value.key,
-              'count':value.doc_count
-            }
-          })
-        })
+        result[key] = Object.assign({}, config['facets'][key], parseFacetResponse(config['facets'][key]['type'],value))
+        console.log(result[key])
       },{}),
       'results': resp.hits.hits.map(function(hit){
         return {
