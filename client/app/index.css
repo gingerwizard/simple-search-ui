@@ -116,11 +116,12 @@ body {
 
 .results-top-bar {
   margin: 15px 0px 0px 0px;
+  justify-content: space-around;
 }
 
 .search-hit-grid {
-  justify-content: space-around;
-  margin-top: 20px !important ;
+  justify-content: space-between;
+  margin-top: 20px !important;
 }
 
 
@@ -131,7 +132,7 @@ body {
   height: 300px;
   width: 300px;
   display: flex;
-  margin: 15px;
+  margin-bottom: 15px;
 }
 .search-hit-contents{
 

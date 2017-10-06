@@ -15,7 +15,7 @@ import {
 function Results (props) {
   return (
     <div>
-      <KuiFlexGroup className="results-top-bar">
+      <KuiFlexGroup alignItems="center" className="results-top-bar">
         <KuiFlexItem grow={false}>
           <ResultDetails query={props.query.get('text')} numHits={props.numHits}/>
         </KuiFlexItem>

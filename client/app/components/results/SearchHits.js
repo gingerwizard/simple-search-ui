@@ -7,7 +7,7 @@ import {
 function SearchHits (props) {
 
     return (
-      <KuiFlexGrid columns={3} className="search-hit-grid">
+      <KuiFlexGrid columns={3} gutterSize="small" className="search-hit-grid">
         {props.results.map(function(hit,hit_num){
             return (
                 <SearchHit key={hit.get('id')} hit={hit}/>

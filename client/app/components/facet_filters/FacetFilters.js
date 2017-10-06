@@ -4,7 +4,7 @@ var NumericRange = require('./NumericRange')
 var NumericHistogram = require('./NumericHistogram')
 var PropTypes = require('prop-types');
 var { List, Map } = require('immutable');
-
+import _ from 'lodash';
 
 function FacetFilters (props) {
 
@@ -12,7 +12,7 @@ function FacetFilters (props) {
   return (
     <div className="filters">
       {
-        props.facets.entrySeq().map(function(facet,key){
+        props.facets.entrySeq().toArray().sort((a, b) => a[1].get('order') > b[1].get('order') ).map(function(facet){
           switch(facet[1].get('type')){
             case 'value_listing': {                //needs a query from the frontend
                 return (
