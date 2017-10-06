@@ -39,6 +39,9 @@ class NumericHistogram extends React.Component {
       this.props.onSelectRange({id:this.props.facet_id,type:this.props.facet_filter.get('type'),
         label:this.props.facet_filter.get('label'),field:this.props.facet_filter.get('field'),
         values:[bounds[0],bounds[1]]});
+      this.setState({
+        'tool_tip':null
+      })
     }
   }
 

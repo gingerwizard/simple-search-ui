@@ -26,7 +26,9 @@ function Results (props) {
           <Sort defaultSort={props.defaultSort} onSortChange={props.onSortChange} sortOptions={props.sortOptions}/>
         </KuiFlexItem>
       </KuiFlexGroup>
-      <SearchHits results={props.results}/>
+      <KuiFlexGroup alignItems="center">
+        <SearchHits results={props.results}/>
+      </KuiFlexGroup>
       <ResultPagination onPageChange={props.onPageChange} pageCount={props.pageCount} currentPage={props.query.get('currentPage')}/>
     </div>
   )

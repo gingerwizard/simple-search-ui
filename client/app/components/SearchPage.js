@@ -8,6 +8,12 @@ var SearchManager = require('../core/SearchManager')
 var { List, Map } = require('immutable');
 var Immutable = require('immutable');
 import _ from 'lodash';
+import {
+  KuiFlexGroup,
+  KuiFlexItem,
+} from '../ui_framework/components';
+
+
 
 
 class SearchPage extends React.Component {
@@ -112,18 +118,18 @@ class SearchPage extends React.Component {
             </div>
             <div className="app-label-right"/>
           </div>
-          <div className="main-panel">
-            <div className="left-panel">
+          <KuiFlexGroup className="main-panel" justifyContent="center">
+            <KuiFlexItem className="left-panel" grow={false}>
               <FacetFilters facets={this.state.facets} filters={this.state.query.get('filters')} onFilterApply={this.handleFilterApply} onFilterRemove={this.handleFilterRemove}/>
-          </div>
-            <div className="center-panel">
+            </KuiFlexItem>
+            <KuiFlexItem className="center-panel" grow={false}>
               <Results defaultSort={this.state.config.get('default_sort')} sortOptions={this.state.config.get('sort_options')} results={this.state.results} pageCount={this.state.pageCount} query={this.state.query} numHits={this.state.numHits} onPageChange={this.handlePageChange} onSortChange={this.handleSortChange} removeFilter={this.handleFilterRemove}/>
-            </div>
-            <div className="right-panel">
-              <div className="App">
+            </KuiFlexItem>
+            <KuiFlexItem className="right-panel" grow={false}>
+              <div>
               </div>
-            </div>
-          </div>
+            </KuiFlexItem>
+          </KuiFlexGroup>
         </div>
       )
     } else {
