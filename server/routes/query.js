@@ -31,7 +31,7 @@ const query_schema = {
           type: {
             type: 'string',
             required: true,
-            enum: ['value_listing','numeric_range','numeric_histogram']
+            enum: ['value_listing','numeric_range','numeric_histogram','date_histogram']
           }
         }
       }
@@ -51,7 +51,7 @@ function buildFilter(filter){
       var range_filter = {
         'gte':filter.values[0]
       }
-      if (filter.values.length > 1) {
+      if (filter.values.length > 1 && filter.values[1]) {
         range_filter['lte'] = filter.values[1]
       }
       return {
@@ -84,19 +84,40 @@ function buildFacet(facet){
           'field':facet.field
         }
       }
+    case 'date_histogram':
+      return {
+        'date_histogram':{
+          'field':facet.field,
+          'interval': facet.interval
+        }
+      }
     }
 }
 
 
-function parseFacetResponse(type,value){
+function parseFacetResponse(type,values){
   switch(type){
     case 'numeric_range':
       return {
           //TODO: This needs to check if the min or max should be used or
       }
+    case 'numeric_histogram':
+    case 'date_histogram':
+      return {
+        'values':values.buckets.map(function(value,i){
+          let upper_bound = i+1 < values.buckets.length ? values.buckets[i+1] : null;
+          return {
+            'upper_key': upper_bound ? upper_bound.key : null,
+            'upper_label': upper_bound ? (upper_bound.key_as_string ? upper_bound.key_as_string : upper_bound.key.toString()): null,
+            'lower_label': value.key_as_string ? value.key_as_string : value.key.toString(),
+            'lower_key':value.key,
+            'count':value.doc_count
+          }
+        })
+      }
     default:
       return {
-        'values':value.buckets.map(function(value){
+        'values':values.buckets.map(function(value){
           return {
             'key':value.key,
             'count':value.doc_count

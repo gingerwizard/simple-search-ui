@@ -70,6 +70,13 @@ function config(){
           "label": "Number of IMDB Votes",
           "interval": 100,
           "order":1
+        },
+        "year_released": {
+          "field": "year",
+          "type": "date_histogram",
+          "label": "Year Released",
+          "interval": "year",
+          "order":1
         }
       },
       "query_template": "simple_search_ui",

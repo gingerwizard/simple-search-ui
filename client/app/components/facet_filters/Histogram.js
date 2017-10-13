@@ -10,9 +10,7 @@ import {
 import { SelectableGroup } from 'react-selectable-fast';
 import HistogramBar from './HistogramBar';
 
-class NumericHistogram extends React.Component {
-
-  FACET_FILTER_TYPE = "numeric_range"
+class Histogram extends React.Component {
 
   constructor(props) {
     super(props);
@@ -25,12 +23,15 @@ class NumericHistogram extends React.Component {
   }
 
   identify_bounds(selectedKeys){
-    let lower_bound = selectedKeys[0].props.range;
-    let upper_bound = selectedKeys[selectedKeys.length - 1].props.range;
+    let lower_facet = selectedKeys[0].props.facet_value;
+    let upper_facet = selectedKeys[selectedKeys.length - 1].props.facet_value;
     //neccessary if the user drags right to left
-    let lower_val = lower_bound.lower < upper_bound.lower ? lower_bound.lower : upper_bound.lower;
-    let upper_val = upper_bound.upper > lower_bound.upper ? upper_bound.upper: lower_bound.upper;
-    return [lower_val,upper_val]
+    let lower_label = lower_facet.get('lower_key') < upper_facet.get('lower_key') ? lower_facet.get('lower_label') : upper_facet.get('lower_label');
+    //if the upper bound is not defined on either we assume its the extremity i.e. last right most bucket
+    let upper_label = upper_facet.get('upper_key') && lower_facet.get('upper_key') ? (
+      upper_facet.get('upper_key') > lower_facet.get('upper_key') ? upper_facet.get('upper_label'): lower_facet.get('upper_label')
+    ) : null;
+    return [lower_label,upper_label]
   }
 
   handleSelection(selectedKeys) {
@@ -50,7 +51,7 @@ class NumericHistogram extends React.Component {
     if (selectedKeys[0]) {
       let bounds = this.identify_bounds(selectedKeys)
       this.setState({
-        'tool_tip':bounds[0] +' - '+bounds[1]
+        'tool_tip': bounds[1] ? bounds[0] +' - '+bounds[1] : '> '+bounds[0]
       })
     }
   }
@@ -67,12 +68,11 @@ class NumericHistogram extends React.Component {
         </KuiSideNavTitle>
         <SelectableGroup resetOnStart={true} tolerance={0} className="histogram" clickClassName="histogram-bar" allowClickWithoutSelected={true}  duringSelection={this.handleSelecting} onSelectionFinish={this.handleSelection}>
           {
-
               this.props.facet_filter.get('values').map(function(value,i){
-                var unique_id = this.props.facet_id+'-'+value.get('key');
+                  var unique_id = this.props.facet_id+'_'+value.get('lower_key')+'_'+value.get('upper_key');
                 var height = (value.get('count')/total)*100;
                 return (
-                    <HistogramBar tool_tip={this.state.tool_tip} range={{'lower':value.get('key'),'upper':value.get('key')+this.props.facet_filter.get('interval')}} height={height} width={bar_width} key={value.get('key')}/>
+                    <HistogramBar tool_tip={this.state.tool_tip} facet_value={value} height={height} width={bar_width} key={unique_id}/>
                 )
           }.bind(this))}
 
@@ -84,10 +84,10 @@ class NumericHistogram extends React.Component {
 }
 
 
-NumericHistogram.propTypes = {
+Histogram.propTypes = {
   facet_id: PropTypes.string.isRequired,
   facet_filter: PropTypes.object,
   onSelectRange: PropTypes.func.isRequired,
 };
 
-module.exports = NumericHistogram;
+module.exports = Histogram;

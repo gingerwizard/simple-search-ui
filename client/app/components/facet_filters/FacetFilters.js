@@ -1,7 +1,7 @@
 var React = require('react');
 var ValueListing = require('./ValueListing')
 var NumericRange = require('./NumericRange')
-var NumericHistogram = require('./NumericHistogram')
+var Histogram = require('./Histogram')
 var PropTypes = require('prop-types');
 var { List, Map } = require('immutable');
 import _ from 'lodash';
@@ -32,10 +32,11 @@ function FacetFilters (props) {
               )
               break;
             }
+            case 'date_histogram':
             case 'numeric_histogram': {
                 return (
                   <div key={facet[0]} className="filter-box">
-                    <NumericHistogram onSelectRange={props.onFilterApply} facet_id={facet[0]} facet_filter={facet[1]}/>
+                    <Histogram onSelectRange={props.onFilterApply} facet_id={facet[0]} facet_filter={facet[1]}/>
                   </div>
                 )
             }

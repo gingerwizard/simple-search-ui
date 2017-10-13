@@ -33,12 +33,16 @@ class HistogramBar extends React.Component {
 
 
   render () {
+    if (!this.props.facet_value) {
+      console.log(JSON.stringify(this.props.facet_value))
+    }
+
     return (
       <div onMouseLeave={this.onMouseLeave} onMouseEnter={this.onMouseEnter} ref={this.props.selectableRef} className={'histogram-bar '+ (this.props.selecting || this.state.isPopoverOpen ? 'bar-select' : 'bar-unselected')} style={{'width': this.props.width+'%'}}>
         <div className="bar-fill" style={{'height':this.props.height+'%','width':'100%'}}/>
         <div className="tooltip">
           <div style={{'display':this.state.isPopoverOpen ? 'inline-block': 'none'}} className="tooltip-body">
-            <span>{this.props.tool_tip ? this.props.tool_tip: this.props.range.lower + ' - '+ this.props.range.upper}</span>
+            <span>{this.props.tool_tip ? this.props.tool_tip: (this.props.facet_value.get('upper_label') ? this.props.facet_value.get('lower_label') + ' - '+ this.props.facet_value.get('upper_label') : '> '+this.props.facet_value.get('lower_label')) }</span>
           </div>
 
         </div>
@@ -52,10 +56,6 @@ HistogramBar.propTypes = {
   height: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
   tool_tip: PropTypes.string,
-  range: PropTypes.shape({
-    lower: PropTypes.number.isRequired,
-    upper: PropTypes.number.isRequired
-  }).isRequired,
 };
 
 
