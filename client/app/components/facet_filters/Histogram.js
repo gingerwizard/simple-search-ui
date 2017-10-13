@@ -39,7 +39,7 @@ class Histogram extends React.Component {
       let bounds = this.identify_bounds(selectedKeys)
       this.props.onSelectRange({id:this.props.facet_id,type:this.props.facet_filter.get('type'),
         label:this.props.facet_filter.get('label'),field:this.props.facet_filter.get('field'),
-        values:[bounds[0],bounds[1]]});
+        values:[bounds[0],bounds[1]], value_label: bounds[1] ? bounds[0] +' - '+bounds[1] : '> '+bounds[0] });
       this.setState({
         'tool_tip':null
       })
