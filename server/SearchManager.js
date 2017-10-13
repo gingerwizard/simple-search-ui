@@ -77,6 +77,15 @@ function config(){
           "label": "Year Released",
           "interval": "year",
           "order":1
+        },
+        "country_genre": {
+          "type":"correlation_matrix"
+          "x_field": "genre",
+          "y_field": "country",
+          "label": "Country vs Genre",
+          "use_signficance": false,
+          "x_size": 12,
+          "size": 10
         }
       },
       "query_template": "simple_search_ui",
