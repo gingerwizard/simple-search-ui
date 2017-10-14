@@ -50,7 +50,8 @@ class NumericRange extends React.Component {
         <div className="range-slider">
           <Range value={this.props.value} onAfterChange={this.slideAfterChange} onChange={this.slideChange} tipProps={{placement: 'bottom'}}
             handleStyle={[{ borderColor: '#007BA7' },{ borderColor: '#007BA7' }]} trackStyle={[{ backgroundColor: '#14A7DF' }]} count={3}
-            step={this.props.facet_filter.get('step')} allowCross={false} min={this.props.facet_filter.get('min')} max={this.props.facet_filter.get('max')}/>
+            step={this.props.facet_filter.get('step')} allowCross={false} min={this.props.facet_filter.get('min')}
+            max={this.props.facet_filter.get('max')}/>
         </div>
       </KuiSideNav>
     )

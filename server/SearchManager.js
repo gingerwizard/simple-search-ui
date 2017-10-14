@@ -111,7 +111,7 @@ function config(){
           "operator":{
             "order":0,
             "label":"Query Operator",
-            "type":"switch",
+            "type":"drop_down",
             "values":[
               {
                 "value":"and",
@@ -132,7 +132,9 @@ function config(){
             "label":"Min Should Match",
             "type":"slider",
             "min":0,
-            "max":100
+            "max":100,
+            "step":1,
+            "default":100
           },
           "year_boost":{
             "order":2,
@@ -208,7 +210,14 @@ function config(){
                 "label":"genre"
               }
             ]
+          },
+          "random":{
+            "type":"switch",
+            "label":"Enable Random",
+            "default":false,
+            "order":6
           }
+
       }
   }
 }
