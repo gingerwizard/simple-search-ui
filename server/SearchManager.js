@@ -106,7 +106,110 @@ function config(){
           "order":"desc"
         }
       },
-      "default_sort": "relevance"
+      "default_sort": "relevance",
+      "relevance_controls":{
+          "operator":{
+            "order":0,
+            "label":"Query Operator",
+            "type":"switch",
+            "values":[
+              {
+                "value":"and",
+                "text":"AND"
+              },
+              {
+                "value":"or",
+                "text":"OR"
+              },
+              {
+                "value":"phrase",
+                "text":"Phrase"
+              }
+            ]
+          },
+          "min_should_match":{
+            "order":1,
+            "label":"Min Should Match",
+            "type":"slider",
+            "min":0,
+            "max":100
+          },
+          "year_boost":{
+            "order":2,
+            "label":"Recency Weight",
+            "type":"counter",
+            "min":0,
+            "max":10,
+            "default":1
+          },
+          "rating_weight":{
+            "order":3,
+            "label":"Rating Weight",
+            "type":"counter",
+            "min":0,
+            "max":10,
+            "default":1
+          },
+          "score_mode":{
+            "order":4,
+            "label":"Score Mode",
+            "type":"drop_down",
+            "values":[
+              {
+                "value":"sum",
+                "text":"Sum"
+              },
+              {
+                "value":"max",
+                "text":"Max"
+              },
+              {
+                "value":"min",
+                "text":"Min"
+              },
+              {
+                "value":"avg",
+                "text":"Average"
+              },
+              {
+                "value":"multiply",
+                "text":"Multiply"
+              },
+              {
+                "value":"replace",
+                "text":"Replace"
+              }
+            ]
+          },
+          "fields":{
+            "order":1,
+            "type":"check_group",
+            "include_counter": true,
+            "label":"Fields to Search",
+            "values":[
+              {
+                "id":"title",
+                "label":"title"
+              },
+              {
+                "id":"description",
+                "label":"description"
+              },
+              {
+                "id":"actors",
+                "label":"actors"
+              },
+              {
+                "id":"directors",
+                "label":"directors"
+              },
+              {
+                "id":"genre",
+                "label":"genre"
+              }
+            ]
+          }
+      }
   }
 }
 

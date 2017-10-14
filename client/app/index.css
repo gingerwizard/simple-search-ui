@@ -28,30 +28,18 @@ body {
 }
 
 .left-panel {
-  background-color: #fff;
   margin-right: 20px;
   margin-left: 20px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  border-color: #ddd;
   width: 300px;
 }
 
 .right-panel {
   margin-left: 20px;
   margin-right: 20px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  border-color: #ddd;
   width: 300px;
 }
 
 .center-panel {
-  border: 1px solid transparent;
-  border-radius: 4px;
-  border-color: #ddd;
-  padding-left: 20px;
-  padding-right: 20px;
   width: 1200px;
   margin-left: 0px !important;
 }
@@ -81,11 +69,8 @@ body {
 
 
 .search-hit {
-  border: 1px solid transparent;
-  border-radius: 4px;
-  border-color: #ddd;
   height: 300px;
-  width: 300px;
+  width: 350px;
   display: flex;
   margin-bottom: 15px;
 }
@@ -126,17 +111,11 @@ body {
   flex-direction: column;
   align-items: center;
   align-content: center;
-  padding: 15px 15px 15px 15px;
-  padding-bottom: 15px;
-  width: 300px;
+  width: 250px;
 }
 
 .filter-box {
-  border: 1px solid transparent;
-  border-radius: 4px;
-  border-color: #ddd;
   margin-bottom: 15px;
-  padding: 10px 10px 10px 10px;
   width: 100%;
 }
 
@@ -237,6 +216,16 @@ body {
   border-bottom-color: #777;
   top: 0;
   left: 50%;
-  margin-left: -.3125rem;
+  margin-lefst: -.3125rem;
   border-width: 0 5px 5px;
+}
+
+.relevancy {
+
+
+}
+
+.relevancy-box {
+  margin-bottom: 15px;
+  width: 100%;
 }

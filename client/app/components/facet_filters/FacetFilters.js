@@ -4,6 +4,9 @@ var NumericRange = require('./NumericRange')
 var Histogram = require('./Histogram')
 var PropTypes = require('prop-types');
 var { List, Map } = require('immutable');
+import {
+  KuiPanel,
+} from '../../ui_framework/components';
 import _ from 'lodash';
 
 function FacetFilters (props) {
@@ -16,28 +19,28 @@ function FacetFilters (props) {
           switch(facet[1].get('type')){
             case 'value_listing': {                //needs a query from the frontend
                 return (
-                  <div key={facet[0]} className="filter-box">
+                  <KuiPanel key={facet[0]} className="filter-box">
                       <ValueListing facet_id={facet[0]} facet_filter={facet[1]} onClick={props.onFilterApply}/>
-                  </div>
+                  </KuiPanel>
                 )
               break;
             }
             case 'numeric_range': {
               return (
-                <div key={facet[0]} className="filter-box">
+                <KuiPanel key={facet[0]} className="filter-box">
                     <NumericRange value={ props.filters.has(facet[0]) ? props.filters.get(facet[0]).values : [facet[1].get('min'),facet[1].get('max')] }
                     is_filtered={props.filters.has(facet[0])} facet_id={facet[0]} facet_filter={facet[1]} onSlideChange={props.onFilterApply}
                     onSlideReset={props.onFilterRemove}/>
-                </div>
+                </KuiPanel>
               )
               break;
             }
             case 'date_histogram':
             case 'numeric_histogram': {
                 return (
-                  <div key={facet[0]} className="filter-box">
+                  <KuiPanel key={facet[0]} className="filter-box">
                     <Histogram onSelectRange={props.onFilterApply} facet_id={facet[0]} facet_filter={facet[1]}/>
-                  </div>
+                  </KuiPanel>
                 )
             }
           }

@@ -2,6 +2,7 @@ var React = require('react');
 var PropTypes = require('prop-types');
 import {
   KuiText,KuiFlexItem,KuiFlexGroup,
+  KuiPanel,
   KuiDescriptionList,
   KuiDescriptionListTitle,
   KuiDescriptionListDescription,
@@ -12,7 +13,8 @@ import noImage from './no_image.png'
 //style={{'backgroundImage': `url("${}")`}}
 function SearchHit (props) {
     return (
-      <KuiFlexGroup className="search-hit">
+      <KuiFlexGroup>
+        <KuiPanel className="search-hit">
           <KuiFlexItem className="search-hit-image">
             <Img src={[props.hit.get('img'),noImage]}/>
           </KuiFlexItem>
@@ -22,6 +24,7 @@ function SearchHit (props) {
               <KuiDescriptionListDescription className="description-text">{props.hit.get('description')}</KuiDescriptionListDescription>
             </KuiDescriptionList>
           </KuiFlexItem>
+        </KuiPanel>
       </KuiFlexGroup>
     )
 }

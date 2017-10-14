@@ -2,7 +2,7 @@ var React = require('react');
 var PropTypes = require('prop-types');
 var SearchHit = require('./SearchHit')
 import {
-  KuiFlexGrid
+  KuiFlexGrid,
 } from '../../ui_framework/components';
 function SearchHits (props) {
 

@@ -1,6 +1,7 @@
 var React = require('react');
 
 var SearchBox = require('./search/SearchBox')
+var Relevancy = require('./relevancy/Relevancy')
 var FacetFilters = require('./facet_filters/FacetFilters')
 //var Relevancy = require('./filters/Relevancy')
 var Results = require('./results/Results')
@@ -11,10 +12,8 @@ import _ from 'lodash';
 import {
   KuiFlexGroup,
   KuiFlexItem,
+  KuiPanel,
 } from '../ui_framework/components';
-
-
-
 
 class SearchPage extends React.Component {
 
@@ -43,6 +42,7 @@ class SearchPage extends React.Component {
     this.handleFilterApply = this.handleFilterApply.bind(this);
     this.handleFilterRemove = this.handleFilterRemove.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
+    this.handleRelevancyChange = this.handleRelevancyChange.bind(this);
   }
 
   handleQueryChange(query){
@@ -56,6 +56,10 @@ class SearchPage extends React.Component {
       this.handleSearch(this.state.query.set('sort',sort_id));
       resolve();
     }.bind(this));
+  }
+
+  handleRelevancyChange(){
+
   }
 
   handleFilterApply(facet_filter,update_query=true){
@@ -113,16 +117,15 @@ class SearchPage extends React.Component {
               <SearchBox onSubmit={this.handleQueryChange}/>
           </KuiFlexGroup>
           <KuiFlexGroup className="main-panel" justifyContent="center">
-            <KuiFlexItem className="left-panel" grow={false}>
+            <KuiPanel className="left-panel" grow={false} hasShadow paddingSize='m'>
               <FacetFilters facets={this.state.facets} filters={this.state.query.get('filters')} onFilterApply={this.handleFilterApply} onFilterRemove={this.handleFilterRemove}/>
-            </KuiFlexItem>
-            <KuiFlexItem className="center-panel" grow={false}>
+            </KuiPanel>
+            <KuiPanel className="center-panel" grow={false} hasShadow paddingSize='l'>
               <Results defaultSort={this.state.config.get('default_sort')} sortOptions={this.state.config.get('sort_options')} results={this.state.results} pageCount={this.state.pageCount} query={this.state.query} numHits={this.state.numHits} onPageChange={this.handlePageChange} onSortChange={this.handleSortChange} removeFilter={this.handleFilterRemove}/>
-            </KuiFlexItem>
-            <KuiFlexItem className="right-panel" grow={false}>
-              <div>
-              </div>
-            </KuiFlexItem>
+            </KuiPanel>
+            <KuiPanel className="right-panel" grow={false} hasShadow paddingSize='m'>
+              <Relevancy changeRelevancy={this.handleRelevancyChange} controls={this.state.config.get('relevance_controls')}/>
+            </KuiPanel>
           </KuiFlexGroup>
         </div>
       )
