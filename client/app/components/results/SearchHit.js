@@ -6,6 +6,7 @@ import {
   KuiDescriptionList,
   KuiDescriptionListTitle,
   KuiDescriptionListDescription,
+  KuiLoadingSpinner,
 } from '../../ui_framework/components';
 import Img from 'react-image'
 import noImage from './no_image.png'
@@ -15,9 +16,9 @@ function SearchHit (props) {
     return (
       <KuiFlexGroup>
         <KuiPanel className="search-hit">
-          <KuiFlexItem className="search-hit-image">
-            <Img src={[props.hit.get('img'),noImage]}/>
-          </KuiFlexItem>
+            <KuiFlexItem className="search-hit-image">
+                <Img src={[props.hit.get('img'),noImage]} loader={<KuiLoadingSpinner size="xLarge"/>}/>
+            </KuiFlexItem>
           <KuiFlexItem className="search-image-details">
             <KuiDescriptionList>
               <KuiDescriptionListTitle>{props.hit.get('title')}</KuiDescriptionListTitle>
