@@ -79,7 +79,7 @@ function config(){
           "order":1
         },
         "country_genre": {
-          "type":"correlation_matrix"
+          "type":"correlation_matrix",
           "x_field": "genre",
           "y_field": "country",
           "label": "Country vs Genre",

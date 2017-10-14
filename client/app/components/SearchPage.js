@@ -109,15 +109,9 @@ class SearchPage extends React.Component {
     if (this.state.isReady) {
       return (
         <div>
-          <div className="nav-bar">
-          </div>
-          <div className="nav-bar-contents">
-            <div className="app-label-left"/>
-            <div className="search-box">
+          <KuiFlexGroup className="nav-bar-contents" justifyContent="spaceAround" alignItems="center">
               <SearchBox onSubmit={this.handleQueryChange}/>
-            </div>
-            <div className="app-label-right"/>
-          </div>
+          </KuiFlexGroup>
           <KuiFlexGroup className="main-panel" justifyContent="center">
             <KuiFlexItem className="left-panel" grow={false}>
               <FacetFilters facets={this.state.facets} filters={this.state.query.get('filters')} onFilterApply={this.handleFilterApply} onFilterRemove={this.handleFilterRemove}/>

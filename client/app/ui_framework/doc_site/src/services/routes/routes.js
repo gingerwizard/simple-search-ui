@@ -6,6 +6,12 @@ import AccordionExample
 import AccessibilityExample
   from '../../views/accessibility/accessibility_example';
 
+import AdvancedSettingsExample
+  from '../../views/advanced_settings/advanced_settings_example';
+
+import AvatarExample
+  from '../../views/avatar/avatar_example';
+
 import BadgeExample
   from '../../views/badge/badge_example';
 
@@ -104,6 +110,10 @@ const components = [{
 }, {
   name: 'Accessibility',
   component: AccessibilityExample,
+  hasReact: true,
+}, {
+  name: 'Avatar',
+  component: AvatarExample,
   hasReact: true,
 }, {
   name: 'Button',
@@ -220,6 +230,10 @@ const components = [{
 }];
 
 const sandboxes = [{
+  name: 'AdvancedSettings',
+  component: AdvancedSettingsExample,
+  hasReact: true,
+}, {
   name: 'Kibana',
   component: KibanaSandbox,
   hasReact: true,

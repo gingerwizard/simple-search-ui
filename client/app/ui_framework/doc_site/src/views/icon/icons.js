@@ -27,6 +27,9 @@ const iconTypes = [
   'cross',
   'document',
   'dot',
+  'empty',
+  'faceHappy',
+  'faceSad',
   'fullScreen',
   'gear',
   'grid',
@@ -36,9 +39,11 @@ const iconTypes = [
   'listAdd',
   'lock',
   'mapMarker',
+  'node',
   'pencil',
   'plusInCircle',
   'search',
+  'shard',
   'share',
   'sortDown',
   'sortUp',
@@ -49,7 +54,7 @@ const iconTypes = [
 ];
 
 export default () => (
-  <KuiFlexGrid columns="4">
+  <KuiFlexGrid columns={4}>
     {
       iconTypes.map(iconType => (
         <KuiFlexItem

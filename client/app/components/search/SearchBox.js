@@ -1,7 +1,13 @@
 var React = require('react');
 import { Input } from 'reactstrap';
-var SearchIcon = require('react-icons/lib/fa/search')
 var PropTypes = require('prop-types');
+import {
+  KuiFieldSearch,
+  KuiForm,
+  KuiFlexGroup,
+  KuiFlexItem,
+  KuiButton,
+} from '../../ui_framework/components';
 
 class SearchBox extends React.Component {
 
@@ -33,12 +39,16 @@ class SearchBox extends React.Component {
 
   render () {
     return (
-        <form className="search-form" onSubmit={this.handleSubmit}>
-            <button className="search-button">
-                <SearchIcon className="search-icon"/>
-            </button>
-            <input placeholder="search movies" className="search-input" type="text" onChange={this.handleChange}/>
-        </form>
+      <form  onSubmit={this.handleSubmit}>
+      <KuiFlexGroup className="search-form">
+        <KuiFlexItem>
+          <KuiFieldSearch className="search-input" fullWidth placeholder="Search..." onChange={this.handleChange} />
+        </KuiFlexItem>
+        <KuiFlexItem grow={false}>
+          <KuiButton fill>Search</KuiButton>
+        </KuiFlexItem>
+     </KuiFlexGroup>
+      </form>
     )
   }
 
