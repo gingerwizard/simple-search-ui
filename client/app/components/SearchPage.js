@@ -110,23 +110,27 @@ class SearchPage extends React.Component {
   }
 
   render () {
+
+
     if (this.state.isReady) {
       return (
         <div>
           <KuiFlexGroup className="nav-bar-contents" justifyContent="spaceAround" alignItems="center">
               <SearchBox onSubmit={this.handleQueryChange}/>
           </KuiFlexGroup>
-          <KuiFlexGroup className="main-panel" justifyContent="center">
-            <KuiPanel className="left-panel" grow={false} hasShadow paddingSize='m'>
-              <FacetFilters facets={this.state.facets} filters={this.state.query.get('filters')} onFilterApply={this.handleFilterApply} onFilterRemove={this.handleFilterRemove}/>
-            </KuiPanel>
-            <KuiPanel className="center-panel" grow={false} hasShadow paddingSize='l'>
-              <Results defaultSort={this.state.config.get('default_sort')} sortOptions={this.state.config.get('sort_options')} results={this.state.results} pageCount={this.state.pageCount} query={this.state.query} numHits={this.state.numHits} onPageChange={this.handlePageChange} onSortChange={this.handleSortChange} removeFilter={this.handleFilterRemove}/>
-            </KuiPanel>
-            <KuiPanel className="right-panel" grow={false} hasShadow paddingSize='m'>
-              <Relevancy changeRelevancy={this.handleRelevancyChange} controls={this.state.config.get('relevance_controls')}/>
-            </KuiPanel>
-          </KuiFlexGroup>
+            { this.state.numHits &&
+              <KuiFlexGroup className="main-panel" justifyContent="center">
+                <KuiPanel className="left-panel" grow={false} hasShadow paddingSize='m'>
+                  <FacetFilters facets={this.state.facets} filters={this.state.query.get('filters')} onFilterApply={this.handleFilterApply} onFilterRemove={this.handleFilterRemove}/>
+                </KuiPanel>
+                <KuiPanel className="center-panel" grow={false} hasShadow paddingSize='l'>
+                  <Results defaultSort={this.state.config.get('default_sort')} sortOptions={this.state.config.get('sort_options')} results={this.state.results} pageCount={this.state.pageCount} query={this.state.query} numHits={this.state.numHits} onPageChange={this.handlePageChange} onSortChange={this.handleSortChange} removeFilter={this.handleFilterRemove}/>
+                </KuiPanel>
+                <KuiPanel className="right-panel" grow={false} hasShadow paddingSize='m'>
+                  <Relevancy changeRelevancy={this.handleRelevancyChange} controls={this.state.config.get('relevance_controls')}/>
+                </KuiPanel>
+              </KuiFlexGroup>
+            }
         </div>
       )
     } else {
@@ -134,5 +138,6 @@ class SearchPage extends React.Component {
     }
   }
 }
+
 
 module.exports = SearchPage;
