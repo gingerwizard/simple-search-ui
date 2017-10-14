@@ -30,7 +30,7 @@ class SearchPage extends React.Component {
       }),
       results: List(),
       pageCount: 0,
-      numHits: 0,
+      numHits: null,
       facets: List(),
       config: Map(),
       isReady: false
@@ -110,15 +110,13 @@ class SearchPage extends React.Component {
   }
 
   render () {
-
-
     if (this.state.isReady) {
       return (
         <div>
           <KuiFlexGroup className="nav-bar-contents" justifyContent="spaceAround" alignItems="center">
               <SearchBox onSubmit={this.handleQueryChange}/>
           </KuiFlexGroup>
-            { this.state.numHits &&
+            { this.state.numHits != null &&
               <KuiFlexGroup className="main-panel" justifyContent="center">
                 <KuiPanel className="left-panel" grow={false} hasShadow paddingSize='m'>
                   <FacetFilters facets={this.state.facets} filters={this.state.query.get('filters')} onFilterApply={this.handleFilterApply} onFilterRemove={this.handleFilterRemove}/>
