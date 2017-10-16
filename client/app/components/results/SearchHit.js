@@ -16,15 +16,13 @@ function SearchHit (props) {
     return (
       <KuiFlexGroup>
         <KuiPanel className="search-hit">
-            <KuiFlexItem className="search-hit-image">
-                <Img src={[props.hit.get('img'),noImage]} loader={<KuiLoadingSpinner size="xLarge"/>}/>
-            </KuiFlexItem>
-          <KuiFlexItem className="search-image-details">
-            <KuiDescriptionList>
-              <KuiDescriptionListTitle>{props.hit.get('title')}</KuiDescriptionListTitle>
-              <KuiDescriptionListDescription className="description-text">{props.hit.get('description')}</KuiDescriptionListDescription>
-            </KuiDescriptionList>
-          </KuiFlexItem>
+
+          <div className="search-image-details">
+              <h2 className="title">{props.hit.get('title')}</h2>
+              <Img className="search-hit-image" src={[props.hit.get('img'),noImage]} loader={<KuiLoadingSpinner size="xLarge"/>}/>
+
+              <p className="description-text">{props.hit.get('description')}</p>
+          </div>
         </KuiPanel>
       </KuiFlexGroup>
     )

@@ -26,7 +26,7 @@ function search(template_id,params){
 //Returns app config from the .simple-search-config index
 function config(){
   return {
-      "default_results_per_page": 12,
+      "default_results_per_page": 15,
       "max_results_per_page":100,
       "max_page":100,
       "id_field":"imdbid",
@@ -84,8 +84,9 @@ function config(){
           "y_field": "country",
           "label": "Country vs Genre",
           "use_signficance": false,
-          "x_size": 12,
-          "size": 10
+          "y_size": 10,
+          "size": 10,
+          "order":0
         }
       },
       "query_template": "simple_search_ui",
@@ -213,7 +214,7 @@ function config(){
           },
           "random":{
             "type":"switch",
-            "label":"Enable Random",
+            "label":"Add Random",
             "default":false,
             "order":6
           }

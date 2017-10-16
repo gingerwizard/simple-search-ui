@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var SearchManager = require('../SearchManager')
 var validate = require('express-jsonschema').validate;
+var clone = require('clone');
 const sort_options = ['relevance','oldest','newest']
 const default_sort = 'relevance'
 
@@ -31,7 +32,7 @@ const query_schema = {
           type: {
             type: 'string',
             required: true,
-            enum: ['value_listing','numeric_range','numeric_histogram','date_histogram']
+            enum: ['value_listing','numeric_range','numeric_histogram','date_histogram','correlation_matrix']
           }
         }
       }
@@ -91,11 +92,27 @@ function buildFacet(facet){
           'interval': facet.interval
         }
       }
+    case 'correlation_matrix':
+      return {
+        'terms':{
+          'field':facet.x_field,
+          'size':facet.x_size ? facet.x_size : facet.size
+        },
+        'aggs':{
+            'y_axis':{
+              [facet.use_signficance ? 'significant_terms' : 'terms']:{
+                'field':facet.y_field,
+                'size':facet.y_size ? facet.y_size : facet.size
+              }
+            }
+        }
+      }
     }
 }
 
 
-function parseFacetResponse(type,values){
+function parseFacetResponse(config,key,values){
+  let type = config['type'];
   switch(type){
     case 'numeric_range':
       return {
@@ -112,6 +129,39 @@ function parseFacetResponse(type,values){
             'lower_label': value.key_as_string ? value.key_as_string : value.key.toString(),
             'lower_key':value.key,
             'count':value.doc_count
+          }
+        })
+      }
+    case 'correlation_matrix':
+      //collect all the keys
+      var inner_keys = values.buckets.reduce(function(current,value){
+        value.y_axis.buckets.forEach(function(sub_val){ current[sub_val.key] = current[sub_val.key] != null ? current[sub_val.key] + 1 : 1; });
+        return current;
+      },{});
+      console.log(inner_keys)
+      //take the Top N most commonly occuring keys
+      inner_keys = Object.keys(inner_keys).sort(function(a, b) { return inner_keys[b] - inner_keys[a] }).slice(0,config['y_axis'] ? config['y_axis'] : config['size']);
+      console.log(inner_keys)
+      //expand into a base response
+      var inner_buckets = inner_keys.map(function(value,_){ return { 'key':value, 'count':0 }});
+      return {
+        'values':values.buckets.map(function(value,_){
+          //not the most efficient
+          let values = clone(inner_buckets);
+          console.log(values)
+          value.y_axis.buckets.forEach(function(sub_value,_){
+            console.log(sub_value.doc_count)
+            let p = inner_keys.indexOf(sub_value.key);
+            if (p >= 0){
+              values[p]['count'] = sub_value.doc_count;
+            }
+          })
+          console.log(values)
+
+          return {
+            'key':value.key,
+            'count':value.doc_count,
+            'values':values
           }
         })
       }
@@ -153,8 +203,7 @@ router.post('/',validate({body: query_schema}),function(req, res, next) {
     res.json({
       'numHits':resp.hits.total,
       'facets': _.transform(resp.aggregations, function(result, value, key){
-        result[key] = Object.assign({}, config['facets'][key], parseFacetResponse(config['facets'][key]['type'],value))
-        console.log(result[key])
+        result[key] = Object.assign({}, config['facets'][key], parseFacetResponse(config['facets'][key],key,value))
       },{}),
       'results': resp.hits.hits.map(function(hit){
         return {
@@ -165,6 +214,8 @@ router.post('/',validate({body: query_schema}),function(req, res, next) {
         }
       })
     })
+  }).catch (function(error){
+    console.error(error);
   });
 });
 

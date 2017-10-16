@@ -35,7 +35,7 @@ class ValueListing extends React.Component {
             var unique_id = this.props.facet_id+'-'+value.get('key');
             return (
               <KuiSideNavItem key={value.get('key')}>
-                <button onClick={() => this.props.onClick({id:unique_id,type:this.FACET_FILTER_TYPE,label:this.props.facet_filter.get('label'),field:this.props.facet_filter.get('field'),value_label:value.get('key'),values:[value.get('key')]})}>
+                <button onClick={() => this.props.onSelect({id:unique_id,type:this.FACET_FILTER_TYPE,label:this.props.facet_filter.get('label'),field:this.props.facet_filter.get('field'),value_label:value.get('key'),values:[value.get('key')]})}>
                   {value.get('key')}
                   <KuiBadge className="term_filter" type="default">
                     {value.get('count')}
@@ -53,7 +53,7 @@ class ValueListing extends React.Component {
 ValueListing.propTypes = {
   facet_id: PropTypes.string.isRequired,
   facet_filter: PropTypes.object,
-  onClick: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
 
 

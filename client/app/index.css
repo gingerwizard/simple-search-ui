@@ -31,16 +31,19 @@ body {
   margin-right: 20px;
   margin-left: 20px;
   width: 300px;
+  min-width: 300px;
 }
 
 .right-panel {
   margin-left: 20px;
   margin-right: 20px;
   width: 300px;
+  min-width: 300px;
 }
 
 .center-panel {
-  width: 1200px;
+  width: 1000px;
+  min-width: 1000px;
   margin-left: 0px !important;
 }
 
@@ -70,7 +73,7 @@ body {
 
 .search-hit {
   height: 300px;
-  width: 350px;
+  width: 300px;
   display: flex;
   margin-bottom: 15px;
 }
@@ -79,42 +82,42 @@ body {
 }
 
 .search-image-details {
-  margin-top: 10px !important;
-  margin-left: 10px !important;
-  padding-right: 5px;
+
 }
 
 .description-text {
   overflow: hidden;
   text-overflow: ellipsis;
   max-height: 220px;
+  color: #3F3F3F;
+  font-weight: 400;
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.5;
+  display: inline;
+}
+
+.title {
+  font-size: 150%;
+  line-height: 32px;
+  margin-bottom: 5px;
 }
 
 .search-hit-image {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin: 10px 10px 10px 10px !important;
-  max-width: 145px;
-  min-width: 145px;
-  max-height: 200px;
-  min-height: 200px;
+  max-width: 110px;
+  min-width: 110px;
+  max-height: 150px;
+  min-height: 150px;
+  margin-right: 10px;
+  float: left;
 }
-
-.search-hit-image img {
-  max-width: 145px;
-  min-width: 145px;
-  max-height: 200px;
-  min-height: 200px;
-}
-
 
 .filters {
   display: flex;
   flex-direction: column;
   align-items: center;
   align-content: center;
-  width: 250px;
+  width: 100%;
 }
 
 .filter-box {
@@ -201,7 +204,7 @@ body {
 
 .tooltip-body {
   border-radius: 4px;
-  background-color: #777 !important;
+  background-color: #777777 !important;
   padding: 5px;
   color: #fff;
   text-align: center;
@@ -216,17 +219,13 @@ body {
   height: 0;
   border-color: transparent;
   border-style: solid;
-  border-bottom-color: #777;
+  border-bottom-color: #777777;
   top: 0;
   left: 50%;
   margin-lefst: -.3125rem;
   border-width: 0 5px 5px;
 }
 
-.relevancy {
-
-
-}
 
 .relevancy-box {
   margin-bottom: 15px;
@@ -235,4 +234,21 @@ body {
 
 .relevancy-slider {
   margin-bottom: 20px;
+}
+
+.correlation-matrix{
+  height: 200px;
+}
+
+.correlation-box {
+  background-color: #14A7DF;
+}
+
+.correlation-tooltip {
+  background-color: #777777 !important;
+  opacity: 1.0 !important;
+}
+.correlation-tooltip::after {
+  border-top-color: #777777 !important;
+  border-top-style: solid !important;
 }

@@ -58,6 +58,7 @@
     "react-image": "^1.0.1",
     "react-router-dom": "^4.2.2",
     "react-selectable-fast": "^2.0.4",
+    "react-tooltip": "^3.4.0",
     "reactstrap": "^4.8.0"
   }
 }

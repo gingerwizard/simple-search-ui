@@ -1,6 +1,7 @@
 var React = require('react');
 var ValueListing = require('./ValueListing')
 var NumericRange = require('./NumericRange')
+var CorrelationMatrix = require('./CorrelationMatrix')
 var Histogram = require('./Histogram')
 var PropTypes = require('prop-types');
 var { List, Map } = require('immutable');
@@ -20,7 +21,7 @@ function FacetFilters (props) {
             case 'value_listing': {                //needs a query from the frontend
                 return (
                   <KuiPanel key={facet[0]} className="filter-box">
-                      <ValueListing facet_id={facet[0]} facet_filter={facet[1]} onClick={props.onFilterApply}/>
+                      <ValueListing facet_id={facet[0]} facet_filter={facet[1]} onSelect={props.onFilterApply}/>
                   </KuiPanel>
                 )
               break;
@@ -34,6 +35,13 @@ function FacetFilters (props) {
                 </KuiPanel>
               )
               break;
+            }
+            case 'correlation_matrix': {
+              return (
+                <KuiPanel key={facet[0]} className="filter-box">
+                  <CorrelationMatrix onSelect={props.onFilterApply} facet_id={facet[0]} facet_filter={facet[1]}/>
+                </KuiPanel>
+              )
             }
             case 'date_histogram':
             case 'numeric_histogram': {

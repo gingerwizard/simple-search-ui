@@ -25,8 +25,7 @@ class SearchPage extends React.Component {
         text:null,
         sort:'relevance',
         filters: Map(),
-        currentPage: 0,
-        results_per_page: 12
+        currentPage: 0
       }),
       results: List(),
       pageCount: 0,
